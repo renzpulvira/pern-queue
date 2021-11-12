@@ -29,21 +29,21 @@ const SearchResults = ({ title, channel }) => {
         <CardMedia
           component="img"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="https://images.unsplash.com/photo-1636749143087-e4b96bb06950?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1374&q=80"
           alt="green iguana"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h6" component="div">
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
           <Button size="small">{channel}</Button>
-          <Button size="small">Learn More</Button>
+          <Button size="small" variant="outlined">
+            Queue Up
+          </Button>
         </CardActions>
       </Card>
     </Grid>
