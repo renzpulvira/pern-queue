@@ -53,6 +53,7 @@ const SearchResults = ({ title, channel }) => {
 export default function SearchPage() {
   const [searchVal, setSearchVal] = useState("");
   const [activeSearch, setActiveSearch] = useState(false);
+  const [queues, setQueues] = useState(dummyCols);
 
   const onChangeSearch = (e) => {
     setSearchVal(e.target.value);
@@ -86,7 +87,7 @@ export default function SearchPage() {
         {/* Results */}
         {activeSearch && (
           <Grid container spacing={3}>
-            {dummyCols.map((col, ind) => (
+            {queues.map((col, ind) => (
               <SearchResults
                 key={ind}
                 title={col.title}
