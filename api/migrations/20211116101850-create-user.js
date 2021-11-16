@@ -1,4 +1,5 @@
 "use strict";
+
 module.exports = {
   up: async (queryInterface, DataTypes) => {
     await queryInterface.createTable("users", {
@@ -8,6 +9,10 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
         allowNull: false,
+      },
+      uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
       },
       name: {
         type: DataTypes.STRING,

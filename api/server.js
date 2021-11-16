@@ -10,27 +10,13 @@ const search = require("youtube-search");
 // Sequelize
 const { sequelize } = require("./models");
 
+// Routes
+const userRoutes = require("./routes/user.routes");
+const queueRoutes = require("./routes/queues.routes");
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.get("/", (req, res) => {
-  res.status(200).send({ huya: "huya" });
-});
-
-app.post("/api/user", async (req, res) => {
-  const { name, email, password, role } = await req.body;
-
-  try {
-    const createdUser = await User.create({ name, email, password, role });
-    return res.status(200).send(createdUser);
-  } catch (err) {
-    if (err) {
-      console.log(err);
-      return res.status(400).send({ error: err });
-    }
-  }
-});
 
 app.post("/api/search", async (req, res) => {
   let searchTerm = await req.body.term;
@@ -49,6 +35,9 @@ app.post("/api/search", async (req, res) => {
     if (err) return res.status(400).send("Something went wrong...");
   }
 });
+
+app.use("/api/user", userRoutes);
+app.use("/api/queues", queueRoutes);
 
 app.listen(PORT, async () => {
   console.log(`[SERVER][LISTEN]::4000`);

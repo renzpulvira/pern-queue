@@ -10,9 +10,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+
+    toJSON() {
+      return { ...this.get(), id: undefined };
+    }
   }
   Queues.init(
     {
+      uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
       yt_url: { type: DataTypes.STRING, allowNull: false },
       title: { type: DataTypes.STRING, allowNull: false },
       queued_by: { type: DataTypes.STRING, allowNull: false },
