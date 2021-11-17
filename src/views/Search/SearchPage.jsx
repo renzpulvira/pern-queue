@@ -13,6 +13,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 
 const dummyCols = [
   { title: "Learn Typescript in 5 minutes 1", channel: "CodeCloud" },
@@ -22,18 +23,24 @@ const dummyCols = [
   { title: "Learn Typescript in 5 minutes 5", channel: "CodeCloud" },
 ];
 
-const SearchResults = ({ title, channel }) => {
+const SearchResults = ({ title, channel, thumbnail }) => {
   return (
     <Grid item xs={12} lg={4}>
       <Card>
         <CardMedia
           component="img"
           height="140"
-          image="https://images.unsplash.com/photo-1636749143087-e4b96bb06950?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1374&q=80"
+          image={thumbnail}
           alt="green iguana"
+          style={{ minHeight: "150px", maxHeight: "150px" }}
         />
         <CardContent>
-          <Typography gutterBottom variant="h6" component="div">
+          <Typography
+            gutterBottom
+            variant="p"
+            component="div"
+            style={{ minHeight: "70px" }}
+          >
             {title}
           </Typography>
         </CardContent>
@@ -52,16 +59,28 @@ const SearchResults = ({ title, channel }) => {
 
 export default function SearchPage() {
   const [searchVal, setSearchVal] = useState("");
-  const [activeSearch, setActiveSearch] = useState(false);
-  const [queues, setQueues] = useState(dummyCols);
+  const [videoResults, setVideoResults] = useState([]);
+  // const [queues, setQueues] = useState(dummyCols);
 
   const onChangeSearch = (e) => {
     setSearchVal(e.target.value);
+
+    // Search video from api
   };
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = async (e) => {
     e.preventDefault();
-    setActiveSearch(!activeSearch);
+    // setActiveSearch(!activeSearch);
+
+    // TODO: Add input validation
+    try {
+      const results = await axios.post(`http://localhost:4000/api/search/`, {
+        term: searchVal,
+      });
+      setVideoResults(results.data.results);
+    } catch (err) {
+      if (err) console.log(err);
+    }
   };
 
   return (
@@ -85,17 +104,20 @@ export default function SearchPage() {
         </form>
 
         {/* Results */}
-        {activeSearch && (
-          <Grid container spacing={3}>
-            {queues.map((col, ind) => (
+        <Grid container spacing={3}>
+          {videoResults.length > 0 ? (
+            videoResults.map((col, ind) => (
               <SearchResults
                 key={ind}
                 title={col.title}
-                channel={col.channel}
+                channel={col.channelTitle}
+                thumbnail={col.thumbnails.default.url}
               />
-            ))}
-          </Grid>
-        )}
+            ))
+          ) : (
+            <p>Search a video</p>
+          )}
+        </Grid>
       </main>
     </React.Fragment>
   );

@@ -11,6 +11,8 @@ import {
   Button,
   ButtonGroup,
 } from "@mui/material";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import { Delete } from "@mui/icons-material";
 function createData(title, queuedBy) {
   return { title, queuedBy };
 }
@@ -40,10 +42,18 @@ const QueueItem = ({ row, ind, handleNextItem, handleDeleteItem }) => {
       <TableCell align="left">{row.queuedBy}</TableCell>
       <TableCell align="right">
         <ButtonGroup>
-          <Button variant="outlined" onClick={() => handleNextItem(ind)}>
+          <Button
+            variant="outlined"
+            startIcon={<ControlPointIcon />}
+            onClick={() => handleNextItem(ind)}
+          >
             Next
           </Button>
-          <Button variant="outlined" onClick={() => handleDeleteItem(ind)}>
+          <Button
+            variant="outlined"
+            startIcon={<Delete />}
+            onClick={() => handleDeleteItem(ind)}
+          >
             Delete
           </Button>
         </ButtonGroup>
@@ -58,6 +68,7 @@ export default function Queues() {
   // Copy
   const queueNextItem = (index) => {
     let copyItems = [...items];
+
     let willMove = copyItems[index];
     copyItems.splice(index, 1);
     copyItems.unshift(willMove);
