@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { connect } from "react-redux";
 import {
   TextField,
   Divider,
@@ -14,14 +16,6 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-
-const dummyCols = [
-  { title: "Learn Typescript in 5 minutes 1", channel: "CodeCloud" },
-  { title: "Learn Typescript in 5 minutes 2", channel: "CodeCloud" },
-  { title: "Learn Typescript in 5 minutes 3", channel: "CodeCloud" },
-  { title: "Learn Typescript in 5 minutes 4", channel: "CodeCloud" },
-  { title: "Learn Typescript in 5 minutes 5", channel: "CodeCloud" },
-];
 
 const SearchResults = ({ title, channel, thumbnail }) => {
   return (
@@ -57,9 +51,21 @@ const SearchResults = ({ title, channel, thumbnail }) => {
   );
 };
 
-export default function SearchPage() {
+function SearchPage({ themeVal }) {
   const [searchVal, setSearchVal] = useState("");
   const [videoResults, setVideoResults] = useState([]);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    setIsDark(themeVal);
+  }, [themeVal]);
+
+  const theme = createTheme({
+    palette: {
+      mode: isDark ? "dark" : "light",
+    },
+  });
+
   // const [queues, setQueues] = useState(dummyCols);
 
   const onChangeSearch = (e) => {
@@ -85,40 +91,48 @@ export default function SearchPage() {
 
   return (
     <React.Fragment>
-      <main>
-        <h3>Search</h3>
-        <form onSubmit={handleSearchSubmit} style={{ marginBottom: "1em" }}>
-          <ButtonGroup style={{ width: "100%" }}>
-            <TextField
-              sx={{ width: "100%" }}
-              id="outlined-basic"
-              label="Search Video"
-              variant="outlined"
-              value={searchVal}
-              onChange={onChangeSearch}
-            />
-            <Button variant="contained" type="submit">
-              Search
-            </Button>
-          </ButtonGroup>
-        </form>
-
-        {/* Results */}
-        <Grid container spacing={3}>
-          {videoResults.length > 0 ? (
-            videoResults.map((col, ind) => (
-              <SearchResults
-                key={ind}
-                title={col.title}
-                channel={col.channelTitle}
-                thumbnail={col.thumbnails.default.url}
+      <ThemeProvider theme={theme}>
+        <main>
+          <h3>Search</h3>
+          <form onSubmit={handleSearchSubmit} style={{ marginBottom: "1em" }}>
+            <ButtonGroup style={{ width: "100%" }}>
+              <TextField
+                sx={{ width: "100%" }}
+                id="outlined-basic"
+                label="Search Video"
+                variant="outlined"
+                value={searchVal}
+                onChange={onChangeSearch}
               />
-            ))
-          ) : (
-            <p>Search a video</p>
-          )}
-        </Grid>
-      </main>
+              <Button variant="contained" type="submit">
+                Search
+              </Button>
+            </ButtonGroup>
+          </form>
+
+          {/* Results */}
+          <Grid container spacing={3}>
+            {videoResults.length > 0 ? (
+              videoResults.map((col, ind) => (
+                <SearchResults
+                  key={ind}
+                  title={col.title}
+                  channel={col.channelTitle}
+                  thumbnail={col.thumbnails.default.url}
+                />
+              ))
+            ) : (
+              <p>Search a video</p>
+            )}
+          </Grid>
+        </main>
+      </ThemeProvider>
     </React.Fragment>
   );
 }
+
+const mapStateToProps = (state) => ({
+  themeVal: state.theme,
+});
+
+export default connect(mapStateToProps)(SearchPage);

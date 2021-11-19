@@ -6,12 +6,15 @@ import {
   FormGroup,
   FormControlLabel,
 } from "@mui/material";
+import { connect } from "react-redux";
+import { toggleTheme } from "../../../store/actions/theme.action.js";
 
-export default function GeneralPage() {
+function GeneralPage({ dispatch, themeVal }) {
   const [checked, setChecked] = useState(false);
 
   const onChangeSwitch = (e) => {
     setChecked(!checked);
+    dispatch(toggleTheme());
   };
 
   return (
@@ -31,3 +34,9 @@ export default function GeneralPage() {
     </React.Fragment>
   );
 }
+
+const mapStateToProps = (state) => ({
+  themeVal: state.theme,
+});
+
+export default connect(mapStateToProps)(GeneralPage);

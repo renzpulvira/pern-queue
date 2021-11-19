@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import {
   Grid,
   Card,
@@ -10,14 +11,19 @@ import {
 } from "@mui/material";
 import Container from "@mui/material/Container";
 import { useHistory } from "react-router-dom";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { connect } from "react-redux";
 
-export default function Navbar() {
+function Navbar({ themeVal }) {
   let history = useHistory();
 
   const [value, setValue] = useState("one");
   const [userName, setUserName] = useState("Renz");
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    setIsDark(themeVal);
+  }, [themeVal]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -25,7 +31,7 @@ export default function Navbar() {
 
   const theme = createTheme({
     palette: {
-      mode: "light",
+      mode: isDark ? "dark" : "light",
     },
   });
 
@@ -101,3 +107,9 @@ export default function Navbar() {
     </ThemeProvider>
   );
 }
+
+const mapStateToProps = (state) => ({
+  themeVal: state.theme,
+});
+
+export default connect(mapStateToProps)(Navbar);

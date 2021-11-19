@@ -1,4 +1,3 @@
-const TOGGLE_TODO = false;
-export const toggleTodo = () => ({
-  type: TOGGLE_TODO,
-});
+const TOGGLE_THEME = "TOGGLE_THEME";
+
+export const toggleTheme = () => ({ type: TOGGLE_THEME });

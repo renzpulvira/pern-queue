@@ -1,10 +1,6 @@
-const initialThemeState = {
-  themeState: false,
-};
-
-export default function themeReducer(state = false, action) {
+export default function themeReducer(state = true, action) {
   switch (action.type) {
-    case "TOGGLE_TODO":
+    case "TOGGLE_THEME":
       return !state;
     default:
       return state;

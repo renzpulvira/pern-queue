@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Divider, Typography } from "@mui/material";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import React from "react";
+// import { Divider, Typography } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { connect } from "react-redux";
 
 import Queues from "./components/Queues/Queues";
 import PlayingQueue from "./components/Queues/PlayingQueue";
 
-function App() {
+function App({ themeRedux }) {
   const theme = createTheme({
     palette: {
-      mode: "light",
+      mode: themeRedux ? "dark" : "light",
     },
   });
 
@@ -18,9 +18,10 @@ function App() {
       <ThemeProvider theme={theme}>
         <main className="App">
           <PlayingQueue />
-          <Divider textAlign="left">
+          {/*<Divider textAlign="left">
             <Typography variant="b">Queues</Typography>
           </Divider>
+          */}
           <Queues />
         </main>
       </ThemeProvider>
@@ -29,7 +30,7 @@ function App() {
 }
 
 const mapStateToProps = (state) => ({
-  theme: state.theme,
+  themeRedux: state.theme,
 });
 
 export default connect(mapStateToProps)(App);

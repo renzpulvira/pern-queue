@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { BrowserRouter, Switch as Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch as Routes, Route } from "react-router-dom";
 import GeneralPage from "./views/settings/General/General.view";
 import SearchPage from "./views/Search/SearchPage";
 import "./index.css";

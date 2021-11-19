@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 
-export default function RouteWrapper({ children }) {
+function RouteWrapper({ children, themeVal }) {
   const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    setIsDark(themeVal);
+  }, [themeVal]);
 
   const routeWrapperStyles = {
     background: isDark ? "#333" : "#fff",
@@ -15,3 +20,9 @@ export default function RouteWrapper({ children }) {
 
   return <div style={routeWrapperStyles}>{children}</div>;
 }
+
+const mapStateToProps = (state) => ({
+  themeVal: state.theme,
+});
+
+export default connect(mapStateToProps)(RouteWrapper);
