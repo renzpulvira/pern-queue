@@ -3,15 +3,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { connect } from "react-redux";
 import {
   TextField,
-  Divider,
   ButtonGroup,
   Button,
   Card,
-  CardHeader,
   CardMedia,
   CardContent,
   CardActions,
-  Container,
   Grid,
   Typography,
 } from "@mui/material";
@@ -122,7 +119,9 @@ function SearchPage({ themeVal }) {
                 />
               ))
             ) : (
-              <p>Search a video</p>
+              <Grid item xs={12} lg={12}>
+                <p>Search a video</p>
+              </Grid>
             )}
           </Grid>
         </main>
