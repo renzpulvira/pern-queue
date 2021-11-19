@@ -1,52 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { connect } from "react-redux";
-import {
-  TextField,
-  ButtonGroup,
-  Button,
-  Card,
-  CardMedia,
-  CardContent,
-  CardActions,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { TextField, ButtonGroup, Button, Grid } from "@mui/material";
 import axios from "axios";
-
-const SearchResults = ({ title, channel, thumbnail }) => {
-  return (
-    <Grid item xs={12} lg={4}>
-      <Card>
-        <CardMedia
-          component="img"
-          height="140"
-          image={thumbnail}
-          alt="green iguana"
-          style={{ minHeight: "150px", maxHeight: "150px" }}
-        />
-        <CardContent>
-          <Typography
-            gutterBottom
-            variant="p"
-            component="div"
-            style={{ minHeight: "70px" }}
-          >
-            {title}
-          </Typography>
-        </CardContent>
-        <CardActions
-          style={{ display: "flex", justifyContent: "space-between" }}
-        >
-          <Button size="small">{channel}</Button>
-          <Button size="small" variant="outlined">
-            Queue Up
-          </Button>
-        </CardActions>
-      </Card>
-    </Grid>
-  );
-};
+import SearchResults from "../../components/Results/Results.jsx";
 
 function SearchPage({ themeVal }) {
   const [searchVal, setSearchVal] = useState("");
