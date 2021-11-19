@@ -13,20 +13,33 @@ import Container from "@mui/material/Container";
 import { useHistory } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { connect } from "react-redux";
+import {
+  setLocalStorage,
+  getCurrPage,
+} from "../../helpers/LocalStorage/LocalStorage.helper.js";
 
 function Navbar({ themeVal }) {
   let history = useHistory();
 
-  const [value, setValue] = useState("one");
+  const [value, setValue] = useState("");
   const [userName, setUserName] = useState("Renz");
   const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    if (!getCurrPage) {
+      setValue("one");
+    } else {
+      setValue(getCurrPage);
+    }
+  }, []);
 
   useEffect(() => {
     setIsDark(themeVal);
   }, [themeVal]);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (e, newValue) => {
     setValue(newValue);
+    setLocalStorage("currPage", newValue);
   };
 
   const theme = createTheme({

@@ -82,7 +82,7 @@ export default function Queues() {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ width: "100%", maxHeight: 600 }}>
+    <TableContainer component={Paper} sx={{ width: "100%", maxHeight: 800 }}>
       <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
