@@ -23,15 +23,15 @@ function RegisterPage({ themeVal }) {
   // States
   const [isDark, setIsDark] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-      data,
-    });
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get("email"),
+  //     password: data.get("password"),
+  //     data,
+  //   });
+  // };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
