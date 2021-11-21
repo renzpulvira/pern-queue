@@ -21,27 +21,30 @@ import { connect } from "react-redux";
 
 // Validations
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 function RegisterPage({ themeVal }) {
   // States
   const [isDark, setIsDark] = useState(false);
+  const schema = yup.object().shape({
+    username: yup.string().min(2),
+    passwqord: yup.min(2),
+  });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const handleFormSubmit = (data) => {
-    console.log(data);
-    console.log(formState);
-  };
+  const handleFormSubmit = (data) => console.log(data);
 
   const theme = createTheme({
     palette: {
       mode: isDark ? "dark" : "light",
     },
   });
+
+  console.log(errors);
 
   useEffect(() => {
     setIsDark(themeVal);
@@ -75,7 +78,9 @@ function RegisterPage({ themeVal }) {
               fullWidth
               id="username"
               label="Username"
-              {...register("username", { required: true, min: 2 })}
+              name="username"
+              inputRef={register}
+              error={!!errors.firstname}
             />
             <TextField
               margin="normal"
@@ -83,12 +88,20 @@ function RegisterPage({ themeVal }) {
               label="Password"
               type="password"
               id="password"
-              {...register("password", { required: true })}
+              name="password"
+              inputRef={register}
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={
+                <Checkbox
+                  value="remember"
+                  color="primary"
+                  name="remember"
+                  inputRef={register}
+                />
+              }
               label="Remember me"
-              {...register("remember")}
+              inputRef={register}
             />
             <Button
               type="submit"
