@@ -16,10 +16,15 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
-  let { yt_url, title, queued_by } = await req.body;
+  let { video_id, channel_id, title, queued_by } = await req.body;
 
   try {
-    const createdQueue = await Queues.create({ yt_url, title, queued_by });
+    const createdQueue = await Queues.create({
+      video_id,
+      channel_id,
+      title,
+      queued_by,
+    });
     return res.status(200).send(createdQueue);
   } catch (err) {
     if (err) {

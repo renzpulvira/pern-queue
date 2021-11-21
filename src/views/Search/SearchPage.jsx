@@ -20,18 +20,12 @@ function SearchPage({ themeVal }) {
     },
   });
 
-  // const [queues, setQueues] = useState(dummyCols);
-
   const onChangeSearch = (e) => {
     setSearchVal(e.target.value);
-
-    // Search video from api
   };
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
-    // setActiveSearch(!activeSearch);
-
     // TODO: Add input validation
     try {
       const results = await axios.post(`http://localhost:4000/api/search/`, {

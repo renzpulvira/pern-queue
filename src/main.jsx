@@ -8,6 +8,7 @@ import "./index.css";
 import Navbar from "./components/Nav/Navbar";
 import { Container } from "@mui/material";
 import RouteWrapper from "./components/Container/RouteWrapper";
+import RegisterPage from "./views/Auth/RegisterPage";
 
 // Redux
 import { createStore, applyMiddleware } from "redux";
@@ -26,7 +27,7 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         <RouteWrapper>
-          <Navbar />
+          {window.location.pathname == "/auth/register" ? null : <Navbar />}
           <Routes>
             <Route exact path="/">
               <Container maxWidth="md">
@@ -44,6 +45,11 @@ ReactDOM.render(
               </Container>
             </Route>
           </Routes>
+          <Route path="/auth/register">
+            <Container maxWidth="md">
+              <RegisterPage />
+            </Container>
+          </Route>
         </RouteWrapper>
       </BrowserRouter>
     </Provider>

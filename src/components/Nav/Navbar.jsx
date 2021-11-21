@@ -21,7 +21,7 @@ import {
 function Navbar({ themeVal }) {
   let history = useHistory();
 
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("one");
   const [userName, setUserName] = useState("Renz");
   const [isDark, setIsDark] = useState(false);
 

@@ -65,7 +65,6 @@ const QueueItem = ({ row, ind, handleNextItem, handleDeleteItem }) => {
 export default function Queues() {
   const [items, setItems] = useState(rows);
 
-  // Copy
   const queueNextItem = (index) => {
     let copyItems = [...items];
 

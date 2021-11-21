@@ -12,14 +12,21 @@ module.exports = {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      yt_url: {
+      video_id: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      channel_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       title: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       queued_by: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
