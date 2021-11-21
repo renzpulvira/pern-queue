@@ -10,31 +10,31 @@ import {
   Link,
   Grid,
   Box,
-  LockOutlinedIcon,
   Typography,
   Container,
 } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 // Redux
 import { connect } from "react-redux";
 
+// Validations
+import { useForm } from "react-hook-form";
+
 function RegisterPage({ themeVal }) {
   // States
   const [isDark, setIsDark] = useState(false);
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get("email"),
-  //     password: data.get("password"),
-  //     data,
-  //   });
-  // };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
+  const handleFormSubmit = (data) => {
+    console.log(data);
+    console.log(formState);
   };
 
   const theme = createTheme({
@@ -67,33 +67,28 @@ function RegisterPage({ themeVal }) {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleFormSubmit}
-            noValidate
+            onSubmit={handleSubmit(handleFormSubmit)}
             sx={{ mt: 1 }}
           >
             <TextField
               margin="normal"
-              required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
+              id="username"
+              label="Username"
+              {...register("username", { required: true, min: 2 })}
             />
             <TextField
               margin="normal"
-              required
               fullWidth
-              name="password"
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              {...register("password", { required: true })}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
+              {...register("remember")}
             />
             <Button
               type="submit"
