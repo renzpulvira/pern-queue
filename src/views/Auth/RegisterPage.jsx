@@ -6,10 +6,14 @@ import {
   CssBaseline,
   TextField,
   FormControlLabel,
+  FormControl,
   Checkbox,
   Link,
+  InputLabel,
   Grid,
   Box,
+  Select,
+  MenuItem,
   Typography,
   Container,
 } from "@mui/material";
@@ -20,21 +24,18 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { connect } from "react-redux";
 
 // Validations
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { useForm, Controller } from "react-hook-form";
 
 function RegisterPage({ themeVal }) {
   // States
   const [isDark, setIsDark] = useState(false);
-  const schema = yup.object().shape({
-    username: yup.string().min(2),
-    passwqord: yup.min(2),
-  });
+  const [selectedRole, setSelectedRole] = useState("listener");
 
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(schema),
-  });
+  const handleRoleChange = (e) => {
+    console.log(e.target.value);
+  };
+
+  const { register, handleSubmit, control, errors } = useForm();
 
   const handleFormSubmit = (data) => console.log(data);
 
@@ -43,8 +44,6 @@ function RegisterPage({ themeVal }) {
       mode: isDark ? "dark" : "light",
     },
   });
-
-  console.log(errors);
 
   useEffect(() => {
     setIsDark(themeVal);
@@ -103,6 +102,28 @@ function RegisterPage({ themeVal }) {
               label="Remember me"
               inputRef={register}
             />
+            <FormControl fullWidth label="Role">
+              <Controller
+                name={"Role"}
+                control={control}
+                label="Age"
+                render={({ onChange, value, ref }) => {
+                  return (
+                    <Select
+                      inputRef={ref}
+                      label="Role"
+                      defaultValue="Listener"
+                      value={value || ""}
+                      onChange={(event) => onChange(event.target.value)}
+                    >
+                      <MenuItem value="Listener">Listener</MenuItem>
+                      <MenuItem value="Host">Host</MenuItem>
+                    </Select>
+                  );
+                }}
+              />
+            </FormControl>
+
             <Button
               type="submit"
               fullWidth
