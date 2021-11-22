@@ -88,7 +88,7 @@ function Navbar({ themeVal }) {
                   component="a"
                   onClick={(event) => {
                     event.preventDefault();
-                    history.push("/settings/profile");
+                    history.push("/settings/general");
                   }}
                 />
               </Tabs>

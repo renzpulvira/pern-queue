@@ -65,6 +65,8 @@ function SearchPage({ themeVal }) {
                 <SearchResults
                   key={ind}
                   title={col.title}
+                  videoId={col.id}
+                  channelId={col.channelId}
                   channel={col.channelTitle}
                   thumbnail={col.thumbnails.default.url}
                 />

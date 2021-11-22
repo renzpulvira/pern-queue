@@ -39,7 +39,7 @@ ReactDOM.render(
                 <SearchPage />
               </Container>
             </Route>
-            <Route path="/settings/profile">
+            <Route path="/settings/general">
               <Container maxWidth="md">
                 <GeneralPage />
               </Container>

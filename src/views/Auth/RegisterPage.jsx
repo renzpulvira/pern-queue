@@ -8,9 +8,6 @@ import {
   FormControlLabel,
   FormControl,
   Checkbox,
-  Link,
-  InputLabel,
-  Grid,
   Box,
   Select,
   MenuItem,
@@ -29,11 +26,11 @@ import { useForm, Controller } from "react-hook-form";
 function RegisterPage({ themeVal }) {
   // States
   const [isDark, setIsDark] = useState(false);
-  const [selectedRole, setSelectedRole] = useState("listener");
+  // const [selectedRole, setSelectedRole] = useState("listener");
 
-  const handleRoleChange = (e) => {
-    console.log(e.target.value);
-  };
+  // const handleRoleChange = (e) => {
+  //   console.log(e.target.value);
+  // };
 
   const { register, handleSubmit, control, errors } = useForm();
 
@@ -132,18 +129,6 @@ function RegisterPage({ themeVal }) {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>

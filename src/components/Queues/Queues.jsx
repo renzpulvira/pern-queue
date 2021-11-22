@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -16,6 +15,9 @@ import { Delete } from "@mui/icons-material";
 function createData(title, queuedBy) {
   return { title, queuedBy };
 }
+
+// REST Packages
+import axios from "axios";
 
 const rows = [
   createData("I Built a $40 Budget Custom Mechanical Keyboard", "Lewis Toh"),
@@ -39,7 +41,7 @@ const QueueItem = ({ row, ind, handleNextItem, handleDeleteItem }) => {
     >
       <TableCell align="left">{ind < 9 ? "0" + (ind + 1) : ind + 1}</TableCell>
       <TableCell align="left">{row.title}</TableCell>
-      <TableCell align="left">{row.queuedBy}</TableCell>
+      <TableCell align="left">{row.queued_by}</TableCell>
       <TableCell align="right">
         <ButtonGroup>
           <Button
@@ -63,7 +65,14 @@ const QueueItem = ({ row, ind, handleNextItem, handleDeleteItem }) => {
 };
 
 export default function Queues() {
-  const [items, setItems] = useState(rows);
+  const [items, setItems] = useState([]);
+
+  useEffect(async () => {
+    // TODO: Add a funcion if user is authenticated before request
+    let res = await axios.get("http://localhost:4000/api/queues");
+    setItems(res.data);
+    console.log(res);
+  }, []);
 
   const queueNextItem = (index) => {
     let copyItems = [...items];
@@ -79,6 +88,24 @@ export default function Queues() {
     copyItems.splice(index, 1);
     setItems(copyItems);
   };
+
+  if (!items.length > 0) {
+    <TableContainer component={Paper} sx={{ width: "100%", maxHeight: 800 }}>
+      <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="left">#</TableCell>
+            <TableCell align="left">Title</TableCell>
+            <TableCell align="left">Queued By</TableCell>
+            <TableCell align="right"></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <p>Getting Data...</p>
+        </TableBody>
+      </Table>
+    </TableContainer>;
+  }
 
   return (
     <TableContainer component={Paper} sx={{ width: "100%", maxHeight: 800 }}>

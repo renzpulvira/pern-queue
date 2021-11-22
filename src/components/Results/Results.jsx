@@ -10,10 +10,20 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-const SearchResults = ({ title, channel, thumbnail }) => {
+const SearchResults = ({ title, channel, thumbnail, channelId, videoId }) => {
   // const addQueue = (info) => {
   //   const results = axios.post("http://localhost:400/api/queues/create");
   // };
+
+  const insertNewQueue = async () => {
+    let res = await axios.post("http://localhost:4000/api/queues/create", {
+      video_id: videoId,
+      channel_id: channelId,
+      title,
+      queued_by: channel /* Change this to queued_by ID */,
+    });
+    console.log(res);
+  };
 
   return (
     <Grid item xs={12} lg={4}>
@@ -39,8 +49,8 @@ const SearchResults = ({ title, channel, thumbnail }) => {
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <Button size="small">{channel}</Button>
-          <Button size="small" variant="outlined">
-            Queue Up
+          <Button size="small" variant="outlined" onClick={insertNewQueue}>
+            Add Queue
           </Button>
         </CardActions>
       </Card>

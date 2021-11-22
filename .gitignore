@@ -4,5 +4,6 @@ dist
 dist-ssr
 *.local
 TODO.md
+todo.md
 api/config/*.js
 ./api/config/*.js
