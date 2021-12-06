@@ -26,11 +26,6 @@ import { useForm, Controller } from "react-hook-form";
 function RegisterPage({ themeVal }) {
   // States
   const [isDark, setIsDark] = useState(false);
-  // const [selectedRole, setSelectedRole] = useState("listener");
-
-  // const handleRoleChange = (e) => {
-  //   console.log(e.target.value);
-  // };
 
   const { register, handleSubmit, control, errors } = useForm();
 
@@ -75,9 +70,9 @@ function RegisterPage({ themeVal }) {
               id="username"
               label="Username"
               name="username"
-              inputRef={register}
-              error={!!errors.firstname}
+              inputRef={register({ required: true, minLength: 2 })}
             />
+            {errors.username && <p>This field is required</p>}
             <TextField
               margin="normal"
               fullWidth
@@ -85,9 +80,10 @@ function RegisterPage({ themeVal }) {
               type="password"
               id="password"
               name="password"
-              inputRef={register}
+              inputRef={register({ required: true, minLength: 2 })}
             />
-            <FormControlLabel
+            {errors.password && <p>This field is required</p>}
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   value="remember"
@@ -98,12 +94,13 @@ function RegisterPage({ themeVal }) {
               }
               label="Remember me"
               inputRef={register}
-            />
+            /> */}
             <FormControl fullWidth label="Role">
+              <p>Role</p>
               <Controller
                 name={"Role"}
                 control={control}
-                label="Age"
+                label="Role"
                 render={({ onChange, value, ref }) => {
                   return (
                     <Select

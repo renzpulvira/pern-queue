@@ -24,7 +24,7 @@ app.post("/api/search", async (req, res) => {
   try {
     search(
       searchTerm,
-      { maxResults: 5, key: process.env.APIKEY },
+      { maxResults: 5, type: "video", key: process.env.APIKEY },
       (err, results) => {
         if (err) return res.status(400).send("Error from NODE");
 

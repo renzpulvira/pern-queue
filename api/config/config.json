@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "linum098",
+    "username": "postgres",
     "password": "admin",
     "database": "queue_db",
     "host": "127.0.0.1",
