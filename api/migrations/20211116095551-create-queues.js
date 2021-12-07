@@ -12,6 +12,10 @@ module.exports = {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
+      queue_order: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       video_id: {
         type: DataTypes.STRING,
         allowNull: false,
