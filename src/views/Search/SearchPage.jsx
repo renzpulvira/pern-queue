@@ -68,7 +68,7 @@ function SearchPage({ themeVal }) {
                   videoId={col.id}
                   channelId={col.channelId}
                   channel={col.channelTitle}
-                  thumbnail={col.thumbnails.default.url}
+                  thumbnail={col.thumbnails?.medium?.url}
                 />
               ))
             ) : (

@@ -16,6 +16,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./store/reducers";
+import LoginPage from "./views/Auth/LoginPage";
 
 const store = createStore(
   rootReducer,
@@ -27,7 +28,10 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         <RouteWrapper>
-          {window.location.pathname == "/auth/register" ? null : <Navbar />}
+          {window.location.pathname == "auth/login" ||
+          "/auth/register" ? null : (
+            <Navbar />
+          )}
           <Routes>
             <Route exact path="/">
               <Container maxWidth="md">
@@ -48,6 +52,11 @@ ReactDOM.render(
           <Route path="/auth/register">
             <Container maxWidth="md">
               <RegisterPage />
+            </Container>
+          </Route>
+          <Route path="/auth/login">
+            <Container maxWidth="md">
+              <LoginPage />
             </Container>
           </Route>
         </RouteWrapper>

@@ -1,8 +1,11 @@
 require("dotenv").config();
 const express = require("express");
+const session = require("express-session");
 const app = express();
 const cors = require("cors");
 const PORT = 4000;
+const passport = require("passport");
+const localStrategy = require("passport-local").Strategy;
 
 // Youtube
 const search = require("youtube-search");
@@ -17,6 +20,17 @@ const queueRoutes = require("./routes/queues.routes");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    secret: process.env.SECRETTHING,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.post("/api/search", async (req, res) => {
   let searchTerm = await req.body.term;
