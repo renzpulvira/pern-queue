@@ -16,15 +16,19 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
-  let { video_id, channel_id, title, queued_by } = await req.body;
+  let { queue_order, video_id, channel_id, title, queued_by } = await req.body;
 
   try {
+    let currentQueus = await Queues.findAll();
+
     const createdQueue = await Queues.create({
+      queue_order: currentQueus.length === 0 ? 0 : currentQueus.length,
       video_id,
       channel_id,
       title,
       queued_by,
     });
+
     return res.status(200).send(createdQueue);
   } catch (err) {
     if (err) {

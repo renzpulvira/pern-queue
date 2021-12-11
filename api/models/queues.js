@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   Queues.init(
     {
       uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
+      queue_order: { type: DataTypes.INTEGER, allowNull: false },
       video_id: { type: DataTypes.STRING, allowNull: false },
       channel_id: { type: DataTypes.STRING, allowNull: false },
       title: { type: DataTypes.STRING, allowNull: false },

@@ -18,6 +18,7 @@ function createData(title, queuedBy) {
 
 // REST Packages
 import axios from "axios";
+import { setLocalStorage } from "../../helpers/LocalStorage/LocalStorage.helper";
 
 const rows = [
   createData("I Built a $40 Budget Custom Mechanical Keyboard", "Lewis Toh"),
@@ -53,11 +54,9 @@ const QueueItem = ({ row, ind, handleNextItem, handleDeleteItem }) => {
           </Button>
           <Button
             variant="outlined"
-            startIcon={<Delete />}
+            startIcon={<Delete style={{ marginRight: "-12px" }} />}
             onClick={() => handleDeleteItem(ind)}
-          >
-            Delete
-          </Button>
+          />
         </ButtonGroup>
       </TableCell>
     </TableRow>
@@ -89,22 +88,29 @@ export default function Queues() {
     setItems(copyItems);
   };
 
-  if (!items.length > 0) {
-    <TableContainer component={Paper} sx={{ width: "100%", maxHeight: 800 }}>
-      <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">#</TableCell>
-            <TableCell align="left">Title</TableCell>
-            <TableCell align="left">Queued By</TableCell>
-            <TableCell align="right"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <p>Getting Data...</p>
-        </TableBody>
-      </Table>
-    </TableContainer>;
+  if (items.length === 0) {
+    return (
+      <TableContainer component={Paper} sx={{ width: "100%", maxHeight: 800 }}>
+        <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">#</TableCell>
+              <TableCell align="left">Title</TableCell>
+              <TableCell align="left">Queued By</TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody className="nani">
+            <TableRow>
+              <TableCell align="left"></TableCell>
+              <TableCell align="left">Please Queue a video</TableCell>
+              <TableCell align="left"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
   }
 
   return (

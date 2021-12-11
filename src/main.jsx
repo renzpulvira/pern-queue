@@ -28,7 +28,11 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         <RouteWrapper>
+<<<<<<< HEAD
           <Navbar />
+=======
+          {window.location.pathname == "auth/login" ? null : <Navbar />}
+>>>>>>> eb6f9a05e9f783fd60a17fcb9206d817ad656e23
           <Routes>
             <Route exact path="/">
               <Container maxWidth="md">
