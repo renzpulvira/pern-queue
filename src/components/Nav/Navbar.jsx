@@ -48,6 +48,12 @@ function Navbar({ themeVal }) {
     },
   });
 
+  if (
+    window.location.pathname == "/auth/login" ||
+    window.location.pathname == "/auth/register"
+  )
+    return null;
+
   return (
     <ThemeProvider theme={theme}>
       <Container

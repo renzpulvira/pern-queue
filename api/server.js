@@ -16,6 +16,7 @@ const { sequelize } = require("./models");
 // Routes
 const userRoutes = require("./routes/user.routes");
 const queueRoutes = require("./routes/queues.routes");
+const roomRoutes = require("./routes/rooms.routes");
 
 app.use(cors());
 app.use(express.json());
@@ -52,6 +53,7 @@ app.post("/api/search", async (req, res) => {
 
 app.use("/api/user", userRoutes);
 app.use("/api/queues", queueRoutes);
+app.use("/api/rooms", roomRoutes);
 
 app.listen(PORT, async () => {
   console.log(`[SERVER][LISTEN]::4000`);

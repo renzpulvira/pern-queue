@@ -1,59 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { AuthForm } from "./Auth.styles";
 
-import {
-  Box,
-  Avatar,
-  TextField,
-  CssBaseline,
-  FormControl,
-  FormControlLabel,
-  Typography,
-  Container,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
-import { connect } from "react-redux";
-
-const LoginPage = ({ themeVal }) => {
+const LoginPage = () => {
   const [isDark, setIsDark] = useState(false);
 
-  const theme = createTheme({
-    palette: {
-      mode: isDark ? "dark" : "light",
-    },
-  });
-
-  useEffect(() => {
-    setIsDark(themeVal);
-  }, [themeVal]);
-
   return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-        </Box>
-      </Container>
-    </ThemeProvider>
+    <AuthForm action="">
+      <Typography variant="h1">Sign In</Typography>
+      <label htmlFor="username">
+        <Typography variant="h6">Username</Typography>
+        <input type="name" name="username" placeholder="Username" />
+      </label>
+      <label htmlFor="password">
+        <Typography variant="h6">Password</Typography>
+        <input type="password" name="password" placeholder="Password" />
+      </label>
+      <input type="submit" value="Sign In" />
+    </AuthForm>
   );
 };
 
-const mapStateToProps = (state) => {
-  themeVal: state.theme;
-};
-
-export default connect(mapStateToProps)(LoginPage);
+export default LoginPage;

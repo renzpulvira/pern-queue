@@ -16,11 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       return { ...this.get(), id: undefined };
     }
   }
+  // TODO: make `room_id` relationship with `room_id` from `rooms` TABLE
   User.init(
     {
       uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
       name: { type: DataTypes.STRING, allowNull: false },
-      password: { type: DataTypes.STRING, allowNull: false },
+      room_id: { type: DataTypes.STRING, allowNull: true },
       role: { type: DataTypes.STRING, allowNull: false },
     },
     {

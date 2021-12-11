@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       return { ...this.get(), id: undefined };
     }
   }
+  // TODO: Create a room_id column thats relationship with `room_id` from `rooms` TABLE
   Queues.init(
     {
       uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },

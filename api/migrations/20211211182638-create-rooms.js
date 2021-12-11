@@ -1,27 +1,24 @@
 "use strict";
-
 module.exports = {
   up: async (queryInterface, DataTypes) => {
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable("rooms", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
-        allowNull: false,
       },
-      uuid: {
+      room_id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      name: {
+      room_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      room_id: { type: DataTypes.String, allowNull: true },
-      role: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      room_descrip: {
+        type: Datatypes.TEXT,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +31,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("rooms");
   },
 };

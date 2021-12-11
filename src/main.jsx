@@ -28,10 +28,7 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         <RouteWrapper>
-          {window.location.pathname == "auth/login" ||
-          "/auth/register" ? null : (
-            <Navbar />
-          )}
+          <Navbar />
           <Routes>
             <Route exact path="/">
               <Container maxWidth="md">
@@ -50,14 +47,10 @@ ReactDOM.render(
             </Route>
           </Routes>
           <Route path="/auth/register">
-            <Container maxWidth="md">
-              <RegisterPage />
-            </Container>
+            <RegisterPage />
           </Route>
           <Route path="/auth/login">
-            <Container maxWidth="md">
-              <LoginPage />
-            </Container>
+            <LoginPage />
           </Route>
         </RouteWrapper>
       </BrowserRouter>

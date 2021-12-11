@@ -34,6 +34,8 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.0",
     "sequelize": "^6.9.0",
+    "styled-components": "^5.3.3",
+    "styled-normalize": "^8.0.7",
     "youtube-search": "^1.1.6",
     "yup": "^0.32.11"
   },
