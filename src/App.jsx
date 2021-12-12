@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import { Divider, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { connect } from "react-redux";
+import WebFont from "webfontloader";
 
-import Queues from "./components/Queues/Queues";
-import PlayingQueue from "./components/Queues/PlayingQueue";
+// import Queues from "./components/Queues/Queues";
+// import PlayingQueue from "./components/Queues/PlayingQueue";
+import QueueList from "./components/Queues/QueueList";
+
+// Styled Components
+import { Wrapper } from "./Global.styles";
 
 function App({ themeRedux }) {
   const theme = createTheme({
@@ -13,16 +18,27 @@ function App({ themeRedux }) {
     },
   });
 
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ["Inter"],
+      },
+    });
+  }, []);
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <main className="App">
-          <PlayingQueue />
+          {/* <PlayingQueue /> */}
           {/*<Divider textAlign="left">
             <Typography variant="b">Queues</Typography>
           </Divider>
           */}
-          <Queues />
+          {/* <Queues /> */}
+          <Wrapper>
+            <QueueList />
+          </Wrapper>
         </main>
       </ThemeProvider>
     </>

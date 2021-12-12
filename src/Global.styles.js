@@ -27,3 +27,17 @@ export const Container = styled.div`
   border: 1px solid #888;
   color: #333;
 `;
+
+export const Wrapper = styled.div`
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 8px;
+  background: #fff;
+  color: #333;
+  margin-top: 3em;
+  font-family: "Inter";
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+`;

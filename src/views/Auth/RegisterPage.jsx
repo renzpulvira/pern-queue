@@ -53,6 +53,14 @@ function RegisterPage() {
           <option value="Listener">Listener</option>
           <option value="Host">Host</option>
         </select>
+        <ul>
+          <li>
+            <b>Listener</b>: Join Rooms(Muted by default)
+          </li>
+          <li>
+            <b>Host</b>: Can Create New Rooms
+          </li>
+        </ul>
       </label>
       <GS.Button>Join</GS.Button>
     </AuthForm>

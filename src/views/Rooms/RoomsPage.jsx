@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
+import WebFont from "webfontloader";
+
+// SC
 import { Wrapper } from "./RoomsPage.styles";
 import { RoomsList } from "./RoomsPage.styles";
-import WebFont from "webfontloader";
+import * as GS from "../../Global.styles";
 
 const dummyData = [
   {
@@ -43,6 +46,7 @@ function RoomsPage() {
           />
         ))}
       </RoomsList>
+      <GS.Button>+ Create New Room</GS.Button>
     </Wrapper>
   );
 }
