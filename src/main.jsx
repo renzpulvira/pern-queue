@@ -1,14 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import { BrowserRouter, Switch as Routes, Route } from "react-router-dom";
+import "./index.css";
+import { Container } from "@mui/material";
+
+// Components
+import App from "./App";
 import GeneralPage from "./views/settings/General/General.view";
 import SearchPage from "./views/Search/SearchPage";
-import "./index.css";
 import Navbar from "./components/Nav/Navbar";
-import { Container } from "@mui/material";
 import RouteWrapper from "./components/Container/RouteWrapper";
 import RegisterPage from "./views/Auth/RegisterPage";
+import RoomsPage from "./views/Rooms/RoomsPage";
 
 // Redux
 import { createStore, applyMiddleware } from "redux";
@@ -23,21 +26,24 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
+React.useEffect(() => {
+  console.log("loaded");
+}, []);
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <RouteWrapper>
-<<<<<<< HEAD
           <Navbar />
-=======
-          {window.location.pathname == "auth/login" ? null : <Navbar />}
->>>>>>> eb6f9a05e9f783fd60a17fcb9206d817ad656e23
           <Routes>
             <Route exact path="/">
               <Container maxWidth="md">
                 <App />
               </Container>
+            </Route>
+            <Route path="/rooms">
+              <RoomsPage />
             </Route>
             <Route path="/search">
               <Container maxWidth="md">

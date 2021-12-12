@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false,
       },
       room_descrip: {
-        type: Datatypes.TEXT,
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       createdAt: {

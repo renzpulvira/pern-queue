@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       channel_id: { type: DataTypes.STRING, allowNull: false },
       title: { type: DataTypes.STRING, allowNull: false },
       queued_by: { type: DataTypes.STRING, allowNull: false },
+      room_id: { type: DataTypes.INTEGER, allowNull: false },
     },
     {
       sequelize,

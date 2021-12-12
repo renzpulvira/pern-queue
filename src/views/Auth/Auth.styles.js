@@ -50,19 +50,4 @@ export const AuthForm = styled.form`
       font-size: 1.125rem;
     }
   }
-
-  input[type="submit"] {
-    width: 100%;
-    padding: 8px;
-    font-weight: 700;
-    font-family: "Arial";
-    font-size: 1.125rem;
-    background: #0eaf52;
-    border-radius: 8px;
-    border: 1px solid #888;
-    color: #fff;
-
-    margin-top: 2em;
-    cursor: pointer;
-  }
 `;

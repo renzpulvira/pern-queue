@@ -50,7 +50,8 @@ function Navbar({ themeVal }) {
 
   if (
     window.location.pathname == "/auth/login" ||
-    window.location.pathname == "/auth/register"
+    window.location.pathname == "/auth/register" ||
+    window.location.pathname == "/rooms"
   )
     return null;
 

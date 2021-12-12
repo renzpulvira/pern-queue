@@ -18,7 +18,10 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      room_id: { type: DataTypes.String, allowNull: true },
+      room_id: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       role: {
         type: DataTypes.STRING,
         allowNull: false,

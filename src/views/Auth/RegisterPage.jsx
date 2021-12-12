@@ -18,6 +18,7 @@ import React, { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import { connect } from "react-redux";
 import { AuthForm } from "./Auth.styles";
+import * as GS from "../../Global.styles";
 
 // Validations
 import { useForm } from "react-hook-form";
@@ -53,7 +54,7 @@ function RegisterPage() {
           <option value="Host">Host</option>
         </select>
       </label>
-      <input type="submit" value="Join" />
+      <GS.Button>Join</GS.Button>
     </AuthForm>
   );
 }
