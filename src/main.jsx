@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch as Routes, Route } from "react-router-dom";
 import "./index.css";
@@ -25,10 +25,6 @@ const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
-
-React.useEffect(() => {
-  console.log("loaded");
-}, []);
 
 ReactDOM.render(
   <React.StrictMode>
