@@ -33,6 +33,7 @@ export const Wrapper = styled.div`
   max-width: 900px;
   margin: 0 auto;
   border-radius: 8px;
+  overflow: hidden;
   background: #fff;
   color: #333;
   margin-top: 3em;

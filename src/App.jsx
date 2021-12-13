@@ -10,6 +10,7 @@ import QueueList from "./components/Queues/QueueList";
 
 // Styled Components
 import { Wrapper } from "./Global.styles";
+import Player from "./components/Player/Player";
 
 function App({ themeRedux }) {
   const theme = createTheme({
@@ -38,6 +39,7 @@ function App({ themeRedux }) {
           {/* <Queues /> */}
           <Wrapper>
             <QueueList />
+            <Player />
           </Wrapper>
         </main>
       </ThemeProvider>
