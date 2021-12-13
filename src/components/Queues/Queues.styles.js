@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const List = styled.ul`
-  padding: 2em 0 1em 0;
+  padding: 0 0 1em 0;
   margin: 0;
   list-style: none;
 `;
@@ -16,6 +16,7 @@ export const Item = styled.li`
   letter-spacing: 0.03em;
   line-height: 1.5;
   font-weight: ${(props) => (props.header ? "900" : "500")};
+  color: #555;
 
   &:before {
     opacity: ${(props) => (props.isPlaying == true ? 1 : 0)};
@@ -39,10 +40,13 @@ export const Item = styled.li`
 
   .title {
     flex: 0 45%;
+    color: #333 !important;
+    font-weight: 700;
   }
 
   .queuedby {
     flex: 0 20%;
+    font-style: italic;
   }
 
   .controls {
@@ -58,6 +62,12 @@ export const Item = styled.li`
     font-family: "Inter";
     color: #555;
     cursor: pointer;
+
+    &:not(:last-child) {
+      font-size: 18px;
+      position: relative;
+      bottom: -4px;
+    }
 
     &:hover {
       color: #222;

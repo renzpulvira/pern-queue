@@ -4,15 +4,16 @@ export const Button = styled.button`
   width: 100%;
   padding: 8px;
   font-weight: 700;
-  font-family: "Arial";
+  font-family: "Inter";
   font-size: 1.125rem;
   background: #0eaf52;
   border-radius: 8px;
   border: 1px solid #888;
   color: #fff;
 
-  margin-top: 2em;
+  /* margin-top: 2em; */
   cursor: pointer;
+  letter-spacing: 0.03em;
 `;
 
 export const Container = styled.div`
@@ -36,7 +37,7 @@ export const Wrapper = styled.div`
   overflow: hidden;
   background: #fff;
   color: #333;
-  margin-top: 3em;
+  /* margin-top: 3em; */
   font-family: "Inter";
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
     rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import WebFont from "webfontloader";
 
 // import {
 //   Avatar,
@@ -32,6 +33,15 @@ function RegisterPage() {
   const { register, handleSubmit, errors } = useForm();
 
   const handleFormSubmit = (data) => console.log(data);
+
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ["Inter"],
+      },
+    });
+  }, []);
+
   return (
     <AuthForm onSubmit={handleSubmit(handleFormSubmit)}>
       <Typography variant="h1">Sign Up</Typography>

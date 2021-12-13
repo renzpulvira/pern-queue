@@ -7,11 +7,13 @@ import { Container } from "@mui/material";
 // Components
 import App from "./App";
 import GeneralPage from "./views/settings/General/General.view";
-import SearchPage from "./views/Search/SearchPage";
+// import SearchPage from "./views/Search/SearchPage";
+import SearchPage2 from "./views/Search/SearchPage2";
 import Navbar from "./components/Nav/Navbar";
 import RouteWrapper from "./components/Container/RouteWrapper";
 import RegisterPage from "./views/Auth/RegisterPage";
 import RoomsPage from "./views/Rooms/RoomsPage";
+import Nav from "./components/Nav/Nav";
 
 // Redux
 import { createStore, applyMiddleware } from "redux";
@@ -31,7 +33,10 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         <RouteWrapper>
-          <Navbar />
+          {/* <Navbar /> */}
+          <Container maxWidth="md">
+            <Nav />
+          </Container>
           <Routes>
             <Route exact path="/">
               <Container maxWidth="md">
@@ -43,7 +48,8 @@ ReactDOM.render(
             </Route>
             <Route path="/search">
               <Container maxWidth="md">
-                <SearchPage />
+                {/* <SearchPage /> */}
+                <SearchPage2 />
               </Container>
             </Route>
             <Route path="/settings/general">

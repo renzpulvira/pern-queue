@@ -18,14 +18,15 @@ export const AuthForm = styled.form`
     font-size: 1.5rem;
     font-weight: 700;
     text-align: center;
+    margin-bottom: 1.5em;
   }
 
   label {
     display: grid;
-    margin-bottom: 15px;
+    margin-bottom: 2em;
 
-    &:last-child {
-      margin: 0;
+    &:not(:last-child) {
+      margin-bottom: 2em;
     }
 
     h6 {

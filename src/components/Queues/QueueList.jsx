@@ -2,7 +2,7 @@
 import * as Queue from "./Queues.styles";
 
 // React Icons
-import { BsMusicNoteBeamed } from "react-icons/bs";
+import { BsMusicNoteBeamed, BsTrash } from "react-icons/bs";
 
 const data = [
   {
@@ -60,7 +60,9 @@ const QueueItem = ({ id, video_id, channel_id, title, queued_by, room_id }) => {
       <div className="title">{title}</div>
       <div className="queuedby">{queued_by}</div>
       <div className="controls">
-        <button>Remove</button>
+        <button>
+          <BsTrash />
+        </button>
         <button>Next Up</button>
       </div>
     </Queue.Item>
