@@ -13,7 +13,7 @@ function RouteWrapper({ children, themeVal }) {
     position: "absolute",
     top: 0,
     left: "50%",
-    height: "100vh",
+    // height: "100vh",
     width: "100vw",
     transform: "translateX(-50%)",
   };

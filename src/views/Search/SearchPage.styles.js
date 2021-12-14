@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Wrapper as GcWrapper, Button as GcButton } from "../../Global.styles";
+import { Wrapper as GcWrapper, ButtonStyles } from "../../Global.styles";
 
 export const Wrapper = styled(GcWrapper)`
   background: #ddd;
@@ -19,10 +19,13 @@ export const Input = styled.form`
     outline: 0;
     padding: 8px;
     font-size: 18px;
+    font-family: "Inter";
   }
 `;
 
-export const Button = styled(GcButton)`
+export const Button = styled.button`
+  ${ButtonStyles};
+  background: #0eaf52;
   flex: 0 10%;
   display: flex;
   grid-column-gap: 8px;

@@ -77,19 +77,12 @@ const QueueList = () => {
         <div className="id">#</div>
         <div className="title">TITLE</div>
         <div className="queuedby">QUEUED BY</div>
-        <div className="controls" style={{ textAlign: "center" }}>
+        <div className="controls" style={{ textAlign: "right" }}>
           CONTROLS
         </div>
       </Queue.Item>
-      {data.map((item, index) => (
-        <QueueItem
-          key={item.id}
-          id={index}
-          title={item.title}
-          queued_by={item.queued_by}
-          channel_id={item.channel_id}
-          video_id={item.video_id}
-        />
+      {data.map((info, index) => (
+        <QueueItem key={info.id} id={index} {...info} />
       ))}
     </Queue.List>
   );

@@ -1,6 +1,12 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const Button = styled.button`
+export const boxShadow = css`
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+`;
+
+export const ButtonStyles = css`
   width: 100%;
   padding: 8px;
   font-weight: 700;
@@ -11,9 +17,12 @@ export const Button = styled.button`
   border: 1px solid #888;
   color: #fff;
 
-  /* margin-top: 2em; */
   cursor: pointer;
   letter-spacing: 0.03em;
+`;
+
+export const Button = styled.button`
+  ${ButtonStyles}
 `;
 
 export const Container = styled.div`
@@ -39,7 +48,5 @@ export const Wrapper = styled.div`
   color: #333;
   /* margin-top: 3em; */
   font-family: "Inter";
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
-    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  ${boxShadow}
 `;

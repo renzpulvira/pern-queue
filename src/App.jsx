@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "./App.css";
 // import { Divider, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { connect } from "react-redux";

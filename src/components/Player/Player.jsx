@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Wrapper, Controls, Thumb, Volume, Range } from "./Player.styles";
 import {
   BsFillPauseCircleFill,
@@ -8,6 +9,12 @@ import {
 } from "react-icons/bs";
 
 const Player = () => {
+  const [isPaused, setIsPaused] = useState(true);
+
+  const handlePlayingState = () => {
+    setIsPaused((prevState) => !prevState);
+  };
+
   return (
     <Wrapper>
       <Thumb>
@@ -15,7 +22,11 @@ const Player = () => {
       </Thumb>
       <Controls>
         <div className="buttons">
-          <BsFillPauseCircleFill />
+          {isPaused ? (
+            <BsFillPlayCircleFill onClick={handlePlayingState} />
+          ) : (
+            <BsFillPauseCircleFill onClick={handlePlayingState} />
+          )}
           <BsFillSkipEndFill />
         </div>
         <div className="timelapse">
