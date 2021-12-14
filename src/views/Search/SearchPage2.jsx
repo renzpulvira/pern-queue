@@ -1,8 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as Search from "./SearchPage.styles";
 import { FiSearch } from "react-icons/fi";
 
 import SearchResults from "../../components/Results/SearchResults";
+
+// SocketIO
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:4000");
 
 const externalData = [
   {
@@ -48,10 +52,15 @@ const SearchPage2 = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(searchRef.current.value);
+    socket.emit("searched", searchRef.current.value);
     setResults(externalData);
     searchRef.current.value = "";
   };
+
+  useEffect(() => {
+    console.log("RAN");
+    socket.emit("connection");
+  }, []);
 
   return (
     <main>

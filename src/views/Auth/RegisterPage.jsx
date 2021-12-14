@@ -1,25 +1,15 @@
-import React, { useState, useEffect } from "react";
-import WebFont from "webfontloader";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
-// import {
-//   Avatar,
-//   Button,
-//   CssBaseline,
-//   TextField,
-//   FormControlLabel,
-//   FormControl,
-//   Checkbox,
-//   Box,
-//   Select,
-//   MenuItem,
-//   Typography,
-//   Container,
-// } from "@mui/material";
 // Redux
 import { Typography } from "@mui/material";
 import { connect } from "react-redux";
 import { AuthForm } from "./Auth.styles";
 import * as GS from "../../Global.styles";
+import { updateUser } from "../../store/actions/user.action";
+
+// Axios
+import axios from "axios";
 
 // Validations
 import { useForm } from "react-hook-form";
@@ -29,18 +19,38 @@ import { useForm } from "react-hook-form";
 function RegisterPage() {
   // States
   const [isDark, setIsDark] = useState(false);
+  const [externalErrors, setExternalErrors] = useState({});
+  const history = useHistory();
 
   const { register, handleSubmit, errors } = useForm();
 
-  const handleFormSubmit = (data) => console.log(data);
+  const handleFormSubmit = async (data) => {
+    const { username, role } = await data;
+    try {
+      const processed = await axios.post(
+        "http://localhost:4000/api/user/create",
+        {
+          name: username,
+          role: role,
+        }
+      );
+      // if (!processed) console.log("Sorry, try again.");
+      // if (processed) console.log(processed);
+      // if (processed) history.push("/rooms");
+      if (processed?.data?.success === false) {
+        setExternalErrors(processed.data);
+      } else {
+        console.log(processed.data);
+        // dispatch(updateUser(username));
+      }
+    } catch (err) {
+      if (err) console.log(err);
+    }
+  };
 
   useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ["Inter"],
-      },
-    });
-  }, []);
+    console.log("Has Errors.");
+  }, [externalErrors]);
 
   return (
     <AuthForm onSubmit={handleSubmit(handleFormSubmit)}>
@@ -55,6 +65,9 @@ function RegisterPage() {
         />
         {errors.username && errors.username.type === "required" && (
           <p>Field is required.</p>
+        )}
+        {externalErrors?.message === "User Already Exists" && (
+          <p>{externalErrors?.message}</p>
         )}
       </label>
       <label htmlFor="role">
@@ -77,4 +90,9 @@ function RegisterPage() {
   );
 }
 
+// const mapStateToProps = (state) => ({
+//   userVal: state.user,
+// });
+
+// export default connect(mapStateToProps)(RegisterPage);
 export default RegisterPage;

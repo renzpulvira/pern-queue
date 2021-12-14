@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, NavLink } from "./Nav.styles";
 import { FcClock } from "react-icons/fc";
-import WebFont from "webfontloader";
 
 const Nav = () => {
   const [currTime, setCurrTime] = useState(0);
@@ -20,14 +19,13 @@ const Nav = () => {
   // TODO: Might refactor the managing of page state
 
   useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ["Inter"],
-      },
-    });
     getCurrTime();
     updateMemoryPage(window.location.pathname);
   }, []);
+
+  if (window.location.pathname == "/auth/register") {
+    return null;
+  }
 
   return (
     <Navbar>

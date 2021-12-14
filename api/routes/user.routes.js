@@ -4,6 +4,10 @@ const router = express.Router();
 const { User } = require("../models");
 // const bcrypt = require("bcryptjs");
 
+const checkUserExists = (model, name) => {
+  return model.findOne({ where: { name } });
+};
+
 router.get("/", async (req, res) => {
   try {
     const allUsers = await User.findAll();
@@ -21,8 +25,19 @@ router.post("/create", async (req, res) => {
 
   try {
     let createdUser;
-    createdUser = await User.create({ name, role });
-    return res.status(200).send(createdUser);
+    // let isExisted = await User.findOne({ where: { name } });
+    const isUserExists = await checkUserExists(User, name);
+    if (isUserExists)
+      return res
+        .status(200)
+        .send({ message: "User Already Exists", success: false });
+    else createdUser = await User.create({ name, role });
+    return res.status(200).send({ message: "New User", success: true });
+
+    // return res.status(200).send({ message: "" });
+
+    // createdUser = await User.create({ name, role });
+    // return res.status(200).send(createdUser);
   } catch (err) {
     if (err) {
       console.log(err);

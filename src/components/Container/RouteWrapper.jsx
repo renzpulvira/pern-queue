@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import WebFont from "webfontloader";
 
 function RouteWrapper({ children, themeVal }) {
   const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ["Inter"],
+      },
+    });
+  }, []);
 
   useEffect(() => {
     setIsDark(themeVal);
@@ -13,7 +22,7 @@ function RouteWrapper({ children, themeVal }) {
     position: "absolute",
     top: 0,
     left: "50%",
-    // height: "100vh",
+    height: "100vh",
     width: "100vw",
     transform: "translateX(-50%)",
   };

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import WebFont from "webfontloader";
 
 // SC
 import { Wrapper } from "./RoomsPage.styles";
@@ -24,14 +23,6 @@ const RoomsItem = ({ id, name, descrip }) => {
 };
 
 function RoomsPage() {
-  useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ["Inter", "Roboto"],
-      },
-    });
-  }, []);
-
   return (
     <Wrapper>
       <h1>Rooms</h1>
