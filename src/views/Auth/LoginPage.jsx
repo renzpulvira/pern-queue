@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AuthForm } from "./Auth.styles";
+import * as GS from "../../Global.styles";
 
 import { Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -18,7 +19,7 @@ const LoginPage = () => {
         <Typography variant="h6">Password</Typography>
         <input type="password" name="password" placeholder="Password" />
       </label>
-      <input type="submit" value="Sign In" />
+      <GS.Button>Log In</GS.Button>
     </AuthForm>
   );
 };

@@ -2,10 +2,34 @@ const { formControlClasses } = require("@mui/material");
 const express = require("express");
 const router = express.Router();
 const { User } = require("../models");
-// const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+
+const authToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    console.log(err);
+
+    if (err) return res.sendStatus(403);
+
+    req.user = user;
+
+    next();
+  });
+};
 
 const checkUserExists = (model, name) => {
   return model.findOne({ where: { name } });
+};
+
+const generateAccessToken = (username) => {
+  return jwt.sign({ name: username }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "15s",
+  });
 };
 
 router.get("/", async (req, res) => {
@@ -19,25 +43,37 @@ router.get("/", async (req, res) => {
     }
   }
 });
+// New Content
+const hashPass = (pass) => {
+  bcrypt.hash(pass, 10, function (err, hash) {
+    return hash;
+  });
+};
 
 router.post("/create", async (req, res) => {
-  let { name, role } = await req.body;
+  let { name, password, role } = await req.body;
 
   try {
+    // TODO: Refactor Code
     let createdUser;
+
     // let isExisted = await User.findOne({ where: { name } });
     const isUserExists = await checkUserExists(User, name);
-    if (isUserExists)
+    if (isUserExists) {
       return res
         .status(200)
         .send({ message: "User Already Exists", success: false });
-    else createdUser = await User.create({ name, role });
-    return res.status(200).send({ message: "New User", success: true });
+    } else {
+      const hashed = await bcrypt.hash(password, 10);
+      // return res.status(200).send({ name, hashed, role });
 
-    // return res.status(200).send({ message: "" });
+      createdUser = await User.create({ name, password: hashed, role });
+      const token = await generateAccessToken(name);
 
-    // createdUser = await User.create({ name, role });
-    // return res.status(200).send(createdUser);
+      return res
+        .status(200)
+        .send({ message: "New User", success: true, token: token });
+    }
   } catch (err) {
     if (err) {
       console.log(err);

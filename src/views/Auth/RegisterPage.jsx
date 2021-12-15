@@ -25,24 +25,19 @@ function RegisterPage() {
   const { register, handleSubmit, errors } = useForm();
 
   const handleFormSubmit = async (data) => {
-    const { username, role } = await data;
+    const { username, password, role } = await data;
     try {
       const processed = await axios.post(
         "http://localhost:4000/api/user/create",
         {
           name: username,
+          password: password,
           role: role,
         }
       );
-      // if (!processed) console.log("Sorry, try again.");
-      // if (processed) console.log(processed);
-      // if (processed) history.push("/rooms");
-      if (processed?.data?.success === false) {
-        setExternalErrors(processed.data);
-      } else {
-        console.log(processed.data);
-        // dispatch(updateUser(username));
-      }
+
+      if (processed?.data?.success === false) setExternalErrors(processed.data);
+      else console.log(processed.data);
     } catch (err) {
       if (err) console.log(err);
     }
@@ -60,7 +55,7 @@ function RegisterPage() {
         <input
           type="name"
           name="username"
-          placeholder="Username"
+          placeholder=""
           ref={register({ required: true, min: 2 })}
         />
         {errors.username && errors.username.type === "required" && (
@@ -68,6 +63,18 @@ function RegisterPage() {
         )}
         {externalErrors?.message === "User Already Exists" && (
           <p>{externalErrors?.message}</p>
+        )}
+      </label>
+      <label htmlFor="password">
+        <Typography variant="h6">Password</Typography>
+        <input
+          type="password"
+          name="password"
+          placeholder=""
+          ref={register({ required: true, min: 2 })}
+        />
+        {errors.password && errors.password.type === "required" && (
+          <p>Field is required.</p>
         )}
       </label>
       <label htmlFor="role">

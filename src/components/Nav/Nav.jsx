@@ -23,7 +23,10 @@ const Nav = () => {
     updateMemoryPage(window.location.pathname);
   }, []);
 
-  if (window.location.pathname == "/auth/register") {
+  if (
+    window.location.pathname == "/auth/register" ||
+    window.location.pathname == "/auth/login"
+  ) {
     return null;
   }
 
