@@ -4,6 +4,8 @@ const router = express.Router();
 const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { checkUserExists } = require("../utils/helpers/db.helpers");
+const { generateAccessToken } = require("../utils/helpers/jwt.helpers");
 
 const authToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -12,23 +14,11 @@ const authToken = (req, res, next) => {
   if (token == null) return res.sendStatus(401);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    console.log(err);
-
     if (err) return res.sendStatus(403);
 
     req.user = user;
 
     next();
-  });
-};
-
-const checkUserExists = (model, name) => {
-  return model.findOne({ where: { name } });
-};
-
-const generateAccessToken = (username) => {
-  return jwt.sign({ name: username }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "15s",
   });
 };
 
@@ -55,9 +45,12 @@ router.post("/create", async (req, res) => {
 
   try {
     // TODO: Refactor Code
-    let createdUser;
 
     // let isExisted = await User.findOne({ where: { name } });
+    /* 
+    This Block checks in the database if the user exists
+    */
+    // const isUserExists = await checkUserExists(User, name);
     const isUserExists = await checkUserExists(User, name);
     if (isUserExists) {
       return res
@@ -65,10 +58,13 @@ router.post("/create", async (req, res) => {
         .send({ message: "User Already Exists", success: false });
     } else {
       const hashed = await bcrypt.hash(password, 10);
-      // return res.status(200).send({ name, hashed, role });
+      const createdUser = await User.create({ name, password: hashed, role });
+      const token = await generateAccessToken(
+        name,
+        process.env.ACCESS_TOKEN_SECRET
+      );
 
-      createdUser = await User.create({ name, password: hashed, role });
-      const token = await generateAccessToken(name);
+      console.log({ createdUser, token });
 
       return res
         .status(200)

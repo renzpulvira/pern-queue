@@ -3,7 +3,6 @@ import { AuthForm } from "./Auth.styles";
 import * as GS from "../../Global.styles";
 
 import { Typography } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const LoginPage = () => {
   const [isDark, setIsDark] = useState(false);

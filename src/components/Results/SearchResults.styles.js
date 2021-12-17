@@ -20,9 +20,14 @@ export const Item = styled.li`
   }
 
   .thumb {
-    flex: 0 200px;
-    height: 120px;
+    /* flex: 0 200px; */
+    min-width: 290px;
+    height: auto;
     border: 1px solid #ddd;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
   }
 
   .info {
@@ -35,6 +40,8 @@ export const Item = styled.li`
 
     p {
       margin: 0 0 15px 0;
+
+      min-height: 6.25rem;
     }
 
     &__button-group {
@@ -52,6 +59,11 @@ export const InfoButton = styled.a`
   margin-right: 8px;
   text-align: center;
   text-decoration: none;
+  padding: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:not(:first-child) {
     background: #0a8f42;

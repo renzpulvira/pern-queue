@@ -21,12 +21,16 @@ export const AuthForm = styled.form`
     margin-bottom: 1.5em;
   }
 
+  button {
+    margin-top: 1em;
+  }
+
   label {
     display: grid;
     margin-bottom: 2em;
 
     &:not(:last-child) {
-      margin-bottom: 2em;
+      margin-bottom: 1em;
     }
 
     h6 {

@@ -31,12 +31,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-io.on("connection", (socket) => {
-  socket.on("connection", () => {
-    console.log({ id: socket.id });
-  });
-});
-
 app.get("/api/", (req, res) => {
   res.status(200).send({ message: "Lorem ipsum dolor sit amet." });
 });
