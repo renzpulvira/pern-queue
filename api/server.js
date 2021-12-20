@@ -6,6 +6,7 @@ const cors = require("cors");
 const PORT = 4000;
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
+const cookieParser = require("cookie-parser");
 
 // SocketIO
 const http = require("http").createServer(app);
@@ -22,14 +23,15 @@ const search = require("youtube-search");
 // Sequelize
 const { sequelize } = require("./models");
 
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 // Routes
 const userRoutes = require("./routes/user.routes");
 const queueRoutes = require("./routes/queues.routes");
 const roomRoutes = require("./routes/rooms.routes");
-
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/", (req, res) => {
   res.status(200).send({ message: "Lorem ipsum dolor sit amet." });

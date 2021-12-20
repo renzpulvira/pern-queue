@@ -5,6 +5,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { connect } from "react-redux";
 import WebFont from "webfontloader";
 import axios from "axios";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:4000");
 
 // import Queues from "./components/Queues/Queues";
 // import PlayingQueue from "./components/Queues/PlayingQueue";
@@ -37,6 +40,11 @@ function App({ themeRedux, queue }) {
       google: {
         families: ["Inter"],
       },
+    });
+
+    socket.on("newQueue", async (obj) => {
+      const newRes = await axios.get("https://localhost:4000/api/queues");
+      console.log(newRes);
     });
   }, []);
 

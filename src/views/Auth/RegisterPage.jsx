@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 // Redux
 import { Typography } from "@mui/material";
@@ -93,6 +93,10 @@ function RegisterPage() {
         </ul>
       </label>
       <GS.Button>Join</GS.Button>
+
+      <p>
+        Already have an account? <Link to="/auth/login">Log In!</Link>
+      </p>
     </AuthForm>
   );
 }

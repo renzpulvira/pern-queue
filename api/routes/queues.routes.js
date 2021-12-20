@@ -19,7 +19,6 @@ router.post("/create", async (req, res) => {
   // let { queue_order, video_id, channel_id, title, queued_by } = await req.body;
   let { video_id, channel_id, title, queued_by, room_id, queue_order } =
     await req.body;
-
   try {
     let currentQueus = await Queues.findAll();
 

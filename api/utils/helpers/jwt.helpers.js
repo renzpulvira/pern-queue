@@ -5,6 +5,9 @@
  * @param  {} token
  * @return {object} Returns an object containing jwt token
  */
+
+const jwt = require("jsonwebtoken");
+
 function generateAccessToken(username, token) {
   return jwt.sign({ name: username }, token, {
     expiresIn: "15s",
