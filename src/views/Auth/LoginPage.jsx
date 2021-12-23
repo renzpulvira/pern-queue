@@ -23,6 +23,7 @@ const LoginPage = () => {
         name: usernameRef.current.value,
         password: passRef.current.value,
       });
+      console.log(res);
       let msg = res.data.msg;
 
       if (msg === "Username not found") {
@@ -30,7 +31,10 @@ const LoginPage = () => {
       } else if (msg === "Incorrect Password") {
         setErrors({ ...errors, username: null, pass: res.data.msg });
       } else {
-        history.push("/");
+        const token = res.data.acessToken;
+        localStorage.setItem("token", token);
+        // history.push("/users");
+        // console.log(res);
       }
     } catch (err) {
       if (err) return err;

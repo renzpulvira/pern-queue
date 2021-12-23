@@ -14,6 +14,7 @@ import RouteWrapper from "./components/Container/RouteWrapper";
 import RegisterPage from "./views/Auth/RegisterPage";
 import RoomsPage from "./views/Rooms/RoomsPage";
 import Nav from "./components/Nav/Nav";
+import AllUsers from "./views/Protected/AllUsers";
 
 // Redux
 import { createStore, applyMiddleware } from "redux";
@@ -63,6 +64,9 @@ ReactDOM.render(
           </Route>
           <Route path="/auth/login">
             <LoginPage />
+          </Route>
+          <Route path="/users">
+            <AllUsers />
           </Route>
         </RouteWrapper>
       </BrowserRouter>
