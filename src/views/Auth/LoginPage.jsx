@@ -10,32 +10,40 @@ const LoginPage = () => {
   const history = useHistory();
   const usernameRef = useRef();
   const passRef = useRef();
-  const [errors, setErrors] = useState({ username: null, pass: null });
+  const [errors, setErrors] = useState("");
 
   const [isDark, setIsDark] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors({ ...errors, username: null, pass: null });
+    setErrors(null);
 
     try {
       const res = await axios.post("http://localhost:4000/api/user/check/", {
         name: usernameRef.current.value,
         password: passRef.current.value,
       });
-      console.log(res);
       let msg = res.data.msg;
 
-      if (msg === "Username not found") {
-        setErrors({ ...errors, username: res.data.msg, pass: null });
-      } else if (msg === "Incorrect Password") {
-        setErrors({ ...errors, username: null, pass: res.data.msg });
-      } else {
-        const token = res.data.acessToken;
-        localStorage.setItem("token", token);
-        // history.push("/users");
-        // console.log(res);
+      if (msg) {
+        setErrors(msg);
+        console.log({ res, errors });
+        return;
       }
+
+      localStorage.setItem("token", res.data.accessToken);
+      history.push("/users");
+
+      // if (msg === "Username not found") {
+      //   setErrors({ ...errors, username: res.data.msg, pass: null });
+      // } else if (msg === "Incorrect Password") {
+      //   setErrors({ ...errors, username: null, pass: res.data.msg });
+      // } else {
+      //   const token = res.data.acessToken;
+      //   localStorage.setItem("token", token);
+      //   // history.push("/users");
+      //   // console.log(res);
+      // }
     } catch (err) {
       if (err) return err;
     }
@@ -53,7 +61,6 @@ const LoginPage = () => {
           ref={usernameRef}
         />
       </label>
-      {errors.username && <p>{errors.username}</p>}
       <label htmlFor="password">
         <Typography variant="h6">Password</Typography>
         <input
@@ -63,7 +70,7 @@ const LoginPage = () => {
           ref={passRef}
         />
       </label>
-      {errors.pass && <p>{errors.pass}</p>}
+      {errors && <p>{errors}</p>}
       <GS.Button>Log In</GS.Button>
       <p>
         No Account Yet? <Link to="/auth/register">Register Now!</Link>

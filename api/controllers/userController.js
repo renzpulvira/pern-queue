@@ -9,8 +9,8 @@ const auth_token = (req, res, next) => {
   // const token = await req.headers["x-access-token"];
   // console.log(`await req.cookies -> ${token}`);
   // if (token == null) return res.status(400).send(token);
-  const token = req.body.token;
-  console.log(token);
+  const token = req.body.clientToken;
+  console.log(`$auth_token -> ${token}`);
 
   if (token == null) return res.sendStatus(401);
 
@@ -85,7 +85,7 @@ const check_user = async (req, res) => {
     if (!user)
       return res
         .status(200)
-        .send({ msg: "Username not found", success: false });
+        .send({ msg: "Incorrect Username/Password.", success: false });
 
     bcrypt.compare(password, user.password, async function (err, bres) {
       if (err) return res.send(err);
@@ -93,7 +93,7 @@ const check_user = async (req, res) => {
       if (!bres) {
         return res
           .status(200)
-          .send({ msg: "Incorrect Password", success: false });
+          .send({ msg: "Incorrect Username/Password.", success: false });
       } else {
         const token = generateAccessToken(
           name,
@@ -101,7 +101,7 @@ const check_user = async (req, res) => {
         );
 
         return res.status(200).send({
-          msg: "Correct Password!",
+          msg: null,
           success: true,
           accessToken: token,
         });
