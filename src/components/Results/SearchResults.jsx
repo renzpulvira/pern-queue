@@ -15,7 +15,7 @@ const ResultItem = ({
   dispatch,
 }) => {
   const insertVideoToQueue = async () => {
-    let res = await axios.post("http://localhost:4000/api/queues/create", {
+    let res = await axios.post("http://localhost:1337/api/queues/create", {
       video_id: id,
       channel_id: channelId,
       title,

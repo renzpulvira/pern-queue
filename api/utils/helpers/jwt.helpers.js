@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
 
 function generateAccessToken(username, token) {
   return jwt.sign({ name: username }, token, {
-    expiresIn: "30s",
+    expiresIn: "15s",
   });
 }
 

@@ -68,7 +68,7 @@ export default function Queues() {
 
   useEffect(async () => {
     // TODO: Add a funcion if user is authenticated before request
-    let res = await axios.get("http://localhost:4000/api/queues");
+    let res = await axios.get("http://localhost:1337/api/queues");
     setItems(res.data);
     console.log(res);
   }, []);

@@ -28,7 +28,7 @@ function SearchPage({ themeVal }) {
     e.preventDefault();
     // TODO: Add input validation
     try {
-      const results = await axios.post(`http://localhost:4000/api/search/`, {
+      const results = await axios.post(`http://localhost:1337/api/search/`, {
         term: searchVal,
       });
       setVideoResults(results.data.results);

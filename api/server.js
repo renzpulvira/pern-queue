@@ -3,7 +3,7 @@ const express = require("express");
 // const session = require("express-session");
 const app = express();
 const cors = require("cors");
-const PORT = 4000;
+const PORT = 1337;
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
@@ -32,6 +32,7 @@ app.use(cookieParser());
 const userRoutes = require("./routes/user.routes");
 const queueRoutes = require("./routes/queues.routes");
 const roomRoutes = require("./routes/rooms.routes");
+const testRoutes = require("./routes/test.routes");
 
 app.get("/api/", (req, res) => {
   res.status(200).send({ message: "Lorem ipsum dolor sit amet." });
@@ -58,9 +59,10 @@ app.post("/api/search", async (req, res) => {
 app.use("/api/user", userRoutes);
 app.use("/api/queues", queueRoutes);
 app.use("/api/rooms", roomRoutes);
+app.use("/test/", testRoutes);
 
 http.listen(PORT, async () => {
-  console.log(`[SERVER][LISTEN]::4000`);
   await sequelize.authenticate();
-  console.log("DB Connected!");
+  console.log(`- Server Running @ 1337`);
+  console.log("- Database Connected");
 });

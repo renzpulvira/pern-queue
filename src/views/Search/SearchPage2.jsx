@@ -7,7 +7,7 @@ import SearchResults from "../../components/Results/SearchResults";
 
 // SocketIO
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect("http://localhost:1337");
 
 const SearchPage2 = () => {
   const searchRef = useRef();
@@ -16,7 +16,7 @@ const SearchPage2 = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const resultsRequest = await axios.post(
-      "http://localhost:4000/api/search",
+      "http://localhost:1337/api/search",
       {
         term: searchRef.current.value,
       }

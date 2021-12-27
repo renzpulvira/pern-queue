@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 // Redux
 import { Typography } from "@mui/material";
@@ -20,6 +21,7 @@ function RegisterPage() {
   // States
   const [isDark, setIsDark] = useState(false);
   const [externalErrors, setExternalErrors] = useState({});
+  const [cookies, setCookies] = useCookies(["jwtToken"]);
   const history = useHistory();
 
   const { register, handleSubmit, errors } = useForm();
@@ -28,7 +30,7 @@ function RegisterPage() {
     const { username, password, role } = await data;
     try {
       const processed = await axios.post(
-        "http://localhost:4000/api/user/create",
+        "http://localhost:1337/api/user/create",
         {
           name: username,
           password: password,
@@ -36,8 +38,16 @@ function RegisterPage() {
         }
       );
 
-      if (processed?.data?.success === false) setExternalErrors(processed.data);
-      else console.log(processed.data);
+      if (processed?.data?.success === false) {
+        setExternalErrors(processed.data);
+        return;
+      }
+
+      setCookies("jwtToken", processed.data.token, {
+        maxAge: 15,
+      });
+
+      history.replace("/");
     } catch (err) {
       if (err) console.log(err);
     }

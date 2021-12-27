@@ -16,7 +16,7 @@ const SearchResults = ({ title, channel, thumbnail, channelId, videoId }) => {
   // };
 
   const insertNewQueue = async () => {
-    let res = await axios.post("http://localhost:4000/api/queues/create", {
+    let res = await axios.post("http://localhost:1337/api/queues/create", {
       video_id: videoId,
       channel_id: channelId,
       title,

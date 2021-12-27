@@ -5,19 +5,19 @@ const jwt = require("jsonwebtoken");
 const { checkUserExists } = require("../utils/helpers/db.helpers");
 const { generateAccessToken } = require("../utils/helpers/jwt.helpers");
 
+// TODO: Follow Appropriate JWT Token Auth
+/* 
+1. Auth Token
+*/
+
 const auth_token = (req, res, next) => {
-  // const token = await req.headers["x-access-token"];
-  // console.log(`await req.cookies -> ${token}`);
-  // if (token == null) return res.status(400).send(token);
+  console.log(`$headers -> ${req.headers["authorization"]}`);
   const token = req.body.clientToken;
-  console.log(`$auth_token -> ${token}`);
 
   if (token == null) return res.sendStatus(401);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, token) => {
-    if (err) return res.sendStatus(403).send(err);
-    console.log({ token });
-
+    if (err) return res.sendStatus(403);
     req.token = token;
 
     next();
@@ -25,6 +25,7 @@ const auth_token = (req, res, next) => {
 };
 
 const request_users = async (req, res, next) => {
+  console.dir(req.token);
   try {
     const allUsers = await User.findAll();
     return res.status(200).send({ allUsers });
@@ -40,7 +41,6 @@ const create_user = async (req, res) => {
   let { name, password, role } = await req.body;
 
   try {
-    // TODO: Refactor Code
     const isUserExists = await checkUserExists(User, name);
     if (isUserExists) {
       return res
@@ -55,12 +55,11 @@ const create_user = async (req, res) => {
         process.env.ACCESS_TOKEN_SECRET
       );
 
-      console.log(`$create_user->if(userExists)->${token}`);
+      console.log(`- create_user->if(userExists)->${token}`);
 
-      // console.log({ createdUser, token });
-      console.log({ token });
+      console.log({ createdUser, token });
 
-      return res.status(200).send({
+      return res.json({
         message: "New User",
         success: true,
         token: token,
