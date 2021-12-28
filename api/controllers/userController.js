@@ -48,12 +48,25 @@ const create_user = async (req, res) => {
         .send({ message: "User Already Exists", success: false });
     } else {
       const hashed = await bcrypt.hash(password, 10);
-      const createdUser = await User.create({ name, password: hashed, role });
 
+      // Access Token
       const token = await generateAccessToken(
         name,
         process.env.ACCESS_TOKEN_SECRET
       );
+
+      // Refresh Token
+      const refreshToken = await generateAccessToken(
+        name,
+        process.env.REFRESH_TOKEN_SECRET
+      );
+
+      const createdUser = await User.create({
+        name,
+        password: hashed,
+        role,
+        refreshToken,
+      });
 
       console.log(`- create_user->if(userExists)->${token}`);
 
@@ -74,7 +87,7 @@ const create_user = async (req, res) => {
   }
 };
 
-const check_user = async (req, res) => {
+const check_exists = async (req, res) => {
   let { name, password } = await req.body;
 
   try {
@@ -98,11 +111,21 @@ const check_user = async (req, res) => {
           name,
           process.env.ACCESS_TOKEN_SECRET
         );
+        const refreshToken = await jwt.sign(
+          { name },
+          process.env.REFRESH_TOKEN_SECRET
+        );
+
+        const updatedUserToken = User.update(
+          { refreshToken },
+          { where: { name: name } }
+        );
 
         return res.status(200).send({
           msg: null,
           success: true,
           accessToken: token,
+          sequelize: updatedUserToken,
         });
       }
     });
@@ -124,10 +147,27 @@ const get_token = async (req, res) => {
   }
 };
 
+const get_current_user = async (req, res) => {
+  const { clientToken } = await req.body;
+  try {
+    jwt.verify(
+      clientToken,
+      process.env.ACCESS_TOKEN_SECRET,
+      async (err, token) => {
+        if (err) return res.sendStatus(403);
+        res.json({ name: token.name });
+      }
+    );
+  } catch (err) {
+    if (err) res.sendStatus(404);
+  }
+};
+
 module.exports = {
   request_users,
   create_user,
-  check_user,
+  check_exists,
   auth_token,
   get_token,
+  get_current_user,
 };

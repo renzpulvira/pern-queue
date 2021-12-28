@@ -24,6 +24,7 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./store/reducers";
 import LoginPage from "./views/Auth/LoginPage";
+import Playground from "./views/Playground/Playground";
 
 const store = createStore(
   rootReducer,
@@ -37,9 +38,7 @@ ReactDOM.render(
         <BrowserRouter>
           <RouteWrapper>
             {/* <Navbar /> */}
-            <Container maxWidth="md">
-              <Nav />
-            </Container>
+
             <Routes>
               <Route exact path="/">
                 <Container maxWidth="md">
@@ -69,6 +68,9 @@ ReactDOM.render(
             </Route>
             <Route path="/users">
               <AllUsers />
+            </Route>
+            <Route exact path="/playground">
+              <Playground />
             </Route>
           </RouteWrapper>
         </BrowserRouter>

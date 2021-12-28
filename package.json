@@ -2,8 +2,9 @@
   "name": "vite-queue-app",
   "version": "0.0.0",
   "scripts": {
-    "d": "vite",
-    "s": "nodemon ./api/server.js",
+    "dev": "vite",
+    "api": "nodemon ./api/server.js",
+    "auth": "nodemon ./api/authServer.js",
     "b": "vite build",
     "serve": "vite preview"
   },

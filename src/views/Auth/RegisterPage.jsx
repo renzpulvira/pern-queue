@@ -29,14 +29,11 @@ function RegisterPage() {
   const handleFormSubmit = async (data) => {
     const { username, password, role } = await data;
     try {
-      const processed = await axios.post(
-        "http://localhost:1337/api/user/create",
-        {
-          name: username,
-          password: password,
-          role: role,
-        }
-      );
+      const processed = await axios.post("http://localhost:4000/auth/create", {
+        name: username,
+        password: password,
+        role: role,
+      });
 
       if (processed?.data?.success === false) {
         setExternalErrors(processed.data);

@@ -1,0 +1,6 @@
+POST http://localhost:4000/auth/update/
+Content-Type: application/json
+
+{
+  "newName": "ohyonk123"
+}

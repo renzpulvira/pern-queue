@@ -26,6 +26,10 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      refreshToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       role: {
         type: DataTypes.STRING,
         allowNull: false,

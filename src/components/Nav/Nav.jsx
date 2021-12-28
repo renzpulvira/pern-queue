@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Navbar, NavLink } from "./Nav.styles";
 import { FcClock } from "react-icons/fc";
 
@@ -22,13 +22,6 @@ const Nav = () => {
     getCurrTime();
     updateMemoryPage(window.location.pathname);
   }, []);
-
-  if (
-    window.location.pathname == "/auth/register" ||
-    window.location.pathname == "/auth/login"
-  ) {
-    return null;
-  }
 
   return (
     <Navbar>

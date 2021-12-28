@@ -4,9 +4,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const PORT = 1337;
-const passport = require("passport");
-const localStrategy = require("passport-local").Strategy;
-const cookieParser = require("cookie-parser");
 
 // SocketIO
 const http = require("http").createServer(app);
@@ -26,10 +23,9 @@ const { sequelize } = require("./models");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 // Routes
-const userRoutes = require("./routes/user.routes");
+
 const queueRoutes = require("./routes/queues.routes");
 const roomRoutes = require("./routes/rooms.routes");
 const testRoutes = require("./routes/test.routes");
@@ -56,13 +52,12 @@ app.post("/api/search", async (req, res) => {
   }
 });
 
-app.use("/api/user", userRoutes);
 app.use("/api/queues", queueRoutes);
 app.use("/api/rooms", roomRoutes);
 app.use("/test/", testRoutes);
 
 http.listen(PORT, async () => {
   await sequelize.authenticate();
-  console.log(`- Server Running @ 1337`);
-  console.log("- Database Connected");
+  console.log(`- API Server Running @ 1337`);
+  console.log(`- Database Connected`);
 });

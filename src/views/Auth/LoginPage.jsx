@@ -23,7 +23,7 @@ const LoginPage = () => {
     console.log(cookies);
 
     try {
-      const res = await axios.post("http://localhost:1337/api/user/check/", {
+      const res = await axios.post("http://localhost:4000/auth/check/", {
         name: usernameRef.current.value,
         password: passRef.current.value,
       });
@@ -39,7 +39,8 @@ const LoginPage = () => {
         maxAge: 15,
       });
 
-      history.replace("/users");
+      // history.replace("/users");
+      history.push("/");
     } catch (err) {
       if (err) return err;
     }
