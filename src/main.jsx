@@ -42,20 +42,24 @@ ReactDOM.render(
             <Routes>
               <Route exact path="/">
                 <Container maxWidth="md">
+                  <Nav />
                   <App />
                 </Container>
               </Route>
               <Route path="/rooms">
+                <Nav />
                 <RoomsPage />
               </Route>
               <Route path="/search">
                 <Container maxWidth="md">
+                  <Nav />
                   {/* <SearchPage /> */}
                   <SearchPage2 />
                 </Container>
               </Route>
               <Route path="/settings/general">
                 <Container maxWidth="md">
+                  <Nav />
                   <GeneralPage />
                 </Container>
               </Route>
@@ -67,9 +71,11 @@ ReactDOM.render(
               <LoginPage />
             </Route>
             <Route path="/users">
+              <Nav />
               <AllUsers />
             </Route>
             <Route exact path="/playground">
+              <Nav />
               <Playground />
             </Route>
           </RouteWrapper>

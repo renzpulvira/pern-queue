@@ -1,6 +1,8 @@
-POST http://localhost:4000/auth/update/
+
+
+POST http://localhost:1337/api/search
 Content-Type: application/json
 
 {
-  "newName": "ohyonk123"
+  "term": "pewdiepie"
 }

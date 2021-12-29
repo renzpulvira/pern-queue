@@ -4,11 +4,22 @@ import { connect } from "react-redux";
 import { TextField, ButtonGroup, Button, Grid } from "@mui/material";
 import axios from "axios";
 import SearchResults from "../../components/Results/Results.jsx";
+import { useHistory } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function SearchPage({ themeVal }) {
   const [searchVal, setSearchVal] = useState("");
   const [videoResults, setVideoResults] = useState([]);
   const [isDark, setIsDark] = useState(false);
+  const [cookie, setCookie] = useCookies(["jwtToken"]);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!cookie.jwtToken) {
+      // history.replace('/auth/login');
+      history.replace("/auth/login");
+    }
+  }, []);
 
   useEffect(() => {
     setIsDark(themeVal);
@@ -27,14 +38,16 @@ function SearchPage({ themeVal }) {
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
     // TODO: Add input validation
-    try {
-      const results = await axios.post(`http://localhost:1337/api/search/`, {
+    const results = await axios
+      .post(`http://localhost:1337/api/search/`, {
         term: searchVal,
+      })
+      .then((res) => {
+        setVideoResults(res.data.results);
+      })
+      .catch((err) => {
+        if (err.respnose.status === 403) history.replace("/auth/login");
       });
-      setVideoResults(results.data.results);
-    } catch (err) {
-      if (err) console.log(err);
-    }
   };
 
   return (

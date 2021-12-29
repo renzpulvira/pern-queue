@@ -56,16 +56,16 @@ const create_user = async (req, res) => {
       );
 
       // Refresh Token
-      const refreshToken = await generateAccessToken(
-        name,
-        process.env.REFRESH_TOKEN_SECRET
-      );
+      // const refreshToken = await generateAccessToken(
+      //   name,
+      //   process.env.REFRESH_TOKEN_SECRET
+      // );
 
       const createdUser = await User.create({
         name,
         password: hashed,
         role,
-        refreshToken,
+        token,
       });
 
       console.log(`- create_user->if(userExists)->${token}`);

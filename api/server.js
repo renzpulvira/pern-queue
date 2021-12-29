@@ -14,9 +14,6 @@ const io = require("socket.io")(http, {
   },
 });
 
-// Youtube
-const search = require("youtube-search");
-
 // Sequelize
 const { sequelize } = require("./models");
 
@@ -29,28 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 const queueRoutes = require("./routes/queues.routes");
 const roomRoutes = require("./routes/rooms.routes");
 const testRoutes = require("./routes/test.routes");
+const searchRoutes = require("./routes/search.routes");
 
 app.get("/api/", (req, res) => {
   res.status(200).send({ message: "Lorem ipsum dolor sit amet." });
 });
 
-app.post("/api/search", async (req, res) => {
-  let searchTerm = await req.body.term;
-
-  try {
-    search(
-      searchTerm,
-      { maxResults: 5, type: "video", key: process.env.APIKEY },
-      (err, results) => {
-        if (err) return res.status(400).send("Error from NODE");
-
-        res.status(200).send({ results: results });
-      }
-    );
-  } catch (err) {
-    if (err) return res.status(400).send("Something went wrong...");
-  }
-});
+app.use("/api/search/", searchRoutes);
 
 app.use("/api/queues", queueRoutes);
 app.use("/api/rooms", roomRoutes);

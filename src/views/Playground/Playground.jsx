@@ -8,6 +8,8 @@ const Playground = () => {
   const [myUsername, setMyUsername] = useState("");
   const history = useHistory();
 
+  // TODO: Make this jwtToken Verify on the server
+  // Not just if the cookie exists
   useEffect(() => {
     if (!cookie.jwtToken) {
       // history.replace('/auth/login');

@@ -7,9 +7,7 @@ import Nav from "../Nav/Nav";
 
 function RouteWrapper({ children, themeVal }) {
   const [isDark, setIsDark] = useState(false);
-  const [currPage, setCurrPage] = useState("/");
   const [renderNav, setRenderNav] = useState(true);
-  const location = useLocation();
 
   // TODO: Newed to Fix Nav
   useEffect(() => {
@@ -18,7 +16,6 @@ function RouteWrapper({ children, themeVal }) {
         families: ["Inter"],
       },
     });
-    setCurrPage(location.pathname);
     console.log(location.pathname);
   }, []);
 
@@ -40,24 +37,7 @@ function RouteWrapper({ children, themeVal }) {
     transform: "translateX(-50%)",
   };
 
-  useEffect(() => {
-    if (currPage == "/auth/register" || currPage == "/auth/login") {
-      setRenderNav(false);
-    } else {
-      setRenderNav(true);
-    }
-  }, [location]);
-
-  // if (currPage == "/auth/register" || currPage == "/auth/login") {
-  //   setRenderNav(false);
-  // }
-
-  return (
-    <div style={routeWrapperStyles}>
-      {renderNav ? "has nav" : false}
-      {children}
-    </div>
-  );
+  return <div style={routeWrapperStyles}>{children}</div>;
 }
 
 const mapStateToProps = (state) => ({

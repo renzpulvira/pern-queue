@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import * as Search from "./SearchPage.styles";
 import { FiSearch } from "react-icons/fi";
 import axios from "axios";
+import { useCookies } from "react-cookie";
+import { useHistory } from "react-router-dom";
 
 import SearchResults from "../../components/Results/SearchResults";
 
@@ -12,21 +14,31 @@ const socket = io.connect("http://localhost:1337");
 const SearchPage2 = () => {
   const searchRef = useRef();
   const [results, setResults] = useState([]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const resultsRequest = await axios.post(
-      "http://localhost:1337/api/search",
-      {
-        term: searchRef.current.value,
-      }
-    );
-    setResults(resultsRequest.data.results);
-  };
+  const [cookie, setCookie] = useCookies(["jwtToken"]);
+  const history = useHistory();
 
   useEffect(() => {
     console.log("RAN");
+    if (!cookie.jwtToken) {
+      // history.replace('/auth/login');
+      history.replace("/auth/login");
+    }
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://localhost:1337/api/search/", {
+        clientToken: cookie.jwtToken,
+        term: searchRef.current.value,
+      })
+      .then((res) => {
+        setResults(res.data.results);
+      })
+      .catch((err) => {
+        if (err.response.status === 403) history.replace("/auth/login");
+      });
+  };
 
   return (
     <main>
