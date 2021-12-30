@@ -53,7 +53,6 @@ ReactDOM.render(
               <Route path="/search">
                 <Container maxWidth="md">
                   <Nav />
-                  {/* <SearchPage /> */}
                   <SearchPage2 />
                 </Container>
               </Route>
