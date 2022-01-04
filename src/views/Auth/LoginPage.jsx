@@ -14,6 +14,8 @@ const LoginPage = () => {
   const [errors, setErrors] = useState("");
   const [isDark, setIsDark] = useState(false);
 
+  console.log(history);
+
   // React Cookie
   const [cookies, setCookie, removeCookie] = useCookies(["jwtToken"]);
 

@@ -1,103 +1,59 @@
-import React, { useState, useEffect } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { connect } from "react-redux";
-import { TextField, ButtonGroup, Button, Grid } from "@mui/material";
+import React, { useRef, useEffect, useState } from "react";
+import * as Search from "./SearchPage.styles";
+import { FiSearch } from "react-icons/fi";
 import axios from "axios";
-import SearchResults from "../../components/Results/Results.jsx";
-import { useHistory } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { useHistory } from "react-router-dom";
 
-function SearchPage({ themeVal }) {
-  const [searchVal, setSearchVal] = useState("");
-  const [videoResults, setVideoResults] = useState([]);
-  const [isDark, setIsDark] = useState(false);
+import SearchResults from "../../components/Results/SearchResults";
+
+// SocketIO
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:1337");
+
+const SearchPage = () => {
+  const searchRef = useRef();
+  const [results, setResults] = useState([]);
   const [cookie, setCookie] = useCookies(["jwtToken"]);
   const history = useHistory();
 
   useEffect(() => {
+    console.log("RAN");
     if (!cookie.jwtToken) {
       // history.replace('/auth/login');
       history.replace("/auth/login");
     }
   }, []);
 
-  useEffect(() => {
-    setIsDark(themeVal);
-  }, [themeVal]);
-
-  const theme = createTheme({
-    palette: {
-      mode: isDark ? "dark" : "light",
-    },
-  });
-
-  const onChangeSearch = (e) => {
-    setSearchVal(e.target.value);
-  };
-
-  const handleSearchSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Add input validation
-    const results = await axios
-      .post(`http://localhost:1337/api/search/`, {
-        term: searchVal,
+    await axios
+      .post("http://localhost:1337/api/search/", {
+        clientToken: cookie.jwtToken,
+        term: searchRef.current.value,
       })
       .then((res) => {
-        setVideoResults(res.data.results);
+        setResults(res.data.results);
       })
       .catch((err) => {
-        if (err.respnose.status === 403) history.replace("/auth/login");
+        if (err.response.status === 403) history.replace("/auth/login");
       });
   };
 
   return (
-    <React.Fragment>
-      <ThemeProvider theme={theme}>
-        <main>
-          <h3>Search</h3>
-          <form onSubmit={handleSearchSubmit} style={{ marginBottom: "1em" }}>
-            <ButtonGroup style={{ width: "100%" }}>
-              <TextField
-                sx={{ width: "100%" }}
-                id="outlined-basic"
-                label="Search Video"
-                variant="outlined"
-                value={searchVal}
-                onChange={onChangeSearch}
-              />
-              <Button variant="contained" type="submit">
-                Search
-              </Button>
-            </ButtonGroup>
-          </form>
-
-          {/* Results */}
-          <Grid container spacing={3}>
-            {videoResults.length > 0 ? (
-              videoResults.map((col, ind) => (
-                <SearchResults
-                  key={ind}
-                  title={col.title}
-                  videoId={col.id}
-                  channelId={col.channelId}
-                  channel={col.channelTitle}
-                  thumbnail={col.thumbnails?.medium?.url}
-                />
-              ))
-            ) : (
-              <Grid item xs={12} lg={12}>
-                <p>Search a video</p>
-              </Grid>
-            )}
-          </Grid>
-        </main>
-      </ThemeProvider>
-    </React.Fragment>
+    <main>
+      <Search.Wrapper>
+        <Search.Input onSubmit={handleSubmit}>
+          <input type="text" ref={searchRef} placeholder="Search" />
+          <Search.Button>
+            <FiSearch />
+            <span>Search</span>
+          </Search.Button>
+        </Search.Input>
+        {results && <SearchResults results={results} />}
+      </Search.Wrapper>
+    </main>
   );
-}
+};
 
-const mapStateToProps = (state) => ({
-  themeVal: state.theme,
-});
-
-export default connect(mapStateToProps)(SearchPage);
+export default SearchPage;

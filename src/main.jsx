@@ -1,21 +1,10 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Switch as Routes, Route } from "react-router-dom";
 import "./index.css";
-import { Container } from "@mui/material";
 import { CookiesProvider } from "react-cookie";
 
 // Components
 import App from "./App";
-import GeneralPage from "./views/settings/General/General.view";
-// import SearchPage from "./views/Search/SearchPage";
-import SearchPage2 from "./views/Search/SearchPage2";
-import Navbar from "./components/Nav/Navbar";
-import RouteWrapper from "./components/Container/RouteWrapper";
-import RegisterPage from "./views/Auth/RegisterPage";
-import RoomsPage from "./views/Rooms/RoomsPage";
-import Nav from "./components/Nav/Nav";
-import AllUsers from "./views/Protected/AllUsers";
 
 // Redux
 import { createStore, applyMiddleware } from "redux";
@@ -23,8 +12,6 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./store/reducers";
-import LoginPage from "./views/Auth/LoginPage";
-import Playground from "./views/Playground/Playground";
 
 const store = createStore(
   rootReducer,
@@ -35,50 +22,7 @@ ReactDOM.render(
   <React.StrictMode>
     <CookiesProvider>
       <Provider store={store}>
-        <BrowserRouter>
-          <RouteWrapper>
-            {/* <Navbar /> */}
-
-            <Routes>
-              <Route exact path="/">
-                <Container maxWidth="md">
-                  <Nav />
-                  <App />
-                </Container>
-              </Route>
-              <Route path="/rooms">
-                <Nav />
-                <RoomsPage />
-              </Route>
-              <Route path="/search">
-                <Container maxWidth="md">
-                  <Nav />
-                  <SearchPage2 />
-                </Container>
-              </Route>
-              <Route path="/settings/general">
-                <Container maxWidth="md">
-                  <Nav />
-                  <GeneralPage />
-                </Container>
-              </Route>
-            </Routes>
-            <Route path="/auth/register">
-              <RegisterPage />
-            </Route>
-            <Route path="/auth/login">
-              <LoginPage />
-            </Route>
-            <Route path="/users">
-              <Nav />
-              <AllUsers />
-            </Route>
-            <Route exact path="/playground">
-              <Nav />
-              <Playground />
-            </Route>
-          </RouteWrapper>
-        </BrowserRouter>
+        <App />
       </Provider>
     </CookiesProvider>
   </React.StrictMode>,

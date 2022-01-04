@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { useCookies } from "react-cookie";
-import { useHistory } from "react-router-dom";
-// import { Divider, Typography } from "@mui/material";
+import { BrowserRouter, Switch as Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { connect } from "react-redux";
 import WebFont from "webfontloader";
@@ -11,20 +9,26 @@ import { io } from "socket.io-client";
 
 const socket = io("http://localhost:1337");
 
-// import Queues from "./components/Queues/Queues";
-// import PlayingQueue from "./components/Queues/PlayingQueue";
-import QueueList from "./components/Queues/QueueList";
+import GeneralPage from "./views/settings/General/General.view";
+import SearchPage from "./views/Search/SearchPage";
+import RouteWrapper from "./components/Container/RouteWrapper";
+import RegisterPage from "./views/Auth/RegisterPage";
+import RoomsPage from "./views/Rooms/RoomsPage";
+import Nav from "./components/Nav/Nav";
+import AllUsers from "./views/Protected/AllUsers";
+
+import LoginPage from "./views/Auth/LoginPage";
+import Playground from "./views/Playground/Playground";
+
+import { Container } from "@mui/material";
 
 // Styled Components
-import { Wrapper } from "./Global.styles";
-import Player from "./components/Player/Player";
+import HomePage from "./views/Home/HomePage";
 
 function App({ themeRedux, queue }) {
-  const [queues, setQueues] = useState();
-  const history = useHistory();
+  // const [queues, setQueues] = useState();
 
   // React-Cookie
-  const [cookie, setCookie] = useCookies(["jwtToken"]);
 
   console.log(queue);
   const theme = createTheme({
@@ -33,19 +37,7 @@ function App({ themeRedux, queue }) {
     },
   });
 
-  const fetchQueues = async () => {
-    console.log("REQUESTING...");
-    const res = await axios.get("http://localhost:1337/api/queues/");
-    // const res = "ohyonk";
-    if (res) console.log("REQUESTED...");
-    console.log(res);
-  };
-
   useEffect(() => {
-    if (!cookie.jwtToken) {
-      history.replace("/auth/login");
-    }
-
     WebFont.load({
       google: {
         families: ["Inter"],
@@ -68,10 +60,50 @@ function App({ themeRedux, queue }) {
           </Divider>
           */}
           {/* <Queues /> */}
-          <Wrapper>
-            <QueueList />
-            <Player />
-          </Wrapper>
+          <BrowserRouter>
+            <RouteWrapper>
+              {/* <Navbar /> */}
+
+              <Routes>
+                <Route exact path="/">
+                  <Container maxWidth="md">
+                    <Nav />
+                    <HomePage />
+                  </Container>
+                </Route>
+                <Route path="/rooms">
+                  <Nav />
+                  <RoomsPage />
+                </Route>
+                <Route path="/search">
+                  <Container maxWidth="md">
+                    <Nav />
+                    <SearchPage />
+                  </Container>
+                </Route>
+                <Route path="/settings/general">
+                  <Container maxWidth="md">
+                    <Nav />
+                    <GeneralPage />
+                  </Container>
+                </Route>
+              </Routes>
+              <Route path="/auth/register">
+                <RegisterPage />
+              </Route>
+              <Route path="/auth/login">
+                <LoginPage />
+              </Route>
+              <Route path="/users">
+                <Nav />
+                <AllUsers />
+              </Route>
+              <Route exact path="/playground">
+                <Nav />
+                <Playground />
+              </Route>
+            </RouteWrapper>
+          </BrowserRouter>
         </main>
       </ThemeProvider>
     </>

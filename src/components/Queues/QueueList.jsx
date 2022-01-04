@@ -69,7 +69,8 @@ const QueueItem = ({ id, video_id, channel_id, title, queued_by, room_id }) => {
   );
 };
 
-const QueueList = () => {
+const QueueList = ({ queues }) => {
+  console.log(queues);
   return (
     <Queue.List>
       <Queue.Item header>
@@ -81,9 +82,10 @@ const QueueList = () => {
           CONTROLS
         </div>
       </Queue.Item>
-      {data.map((info, index) => (
-        <QueueItem key={info.id} id={index} {...info} />
-      ))}
+      {queues &&
+        queues.map((info, index) => (
+          <QueueItem key={info.uuid} id={index} {...info} />
+        ))}
     </Queue.List>
   );
 };
